@@ -14,51 +14,123 @@ const cypher =
 {
    1000:"M" ,
     900:"CM",
+
+
+    800:"DCCC",
+    700:"DCC",
+    600:"DC",    
+
+
     500:"D" ,
     400:"CD",
     100:"C" ,
      90:"XC",
+
+
+     80:"LXXX",   
+     70:"LXX",
+     60:"LX",   
+
+
      50:"L" ,
      40:"XL",
      10:"X" ,
       9:"IX",
+
+
+      8:"VIII",
+      7:"VII",
+      6:"VI",
+
+
       5:"V" ,
       4:"IV",
       1:"I" 
-    }
+}
+
 let eachDigitString = num.toString().split("").reverse()
 let eachDigitInt = []
-//let result = ""
 let result = []
 let base = [1, 10, 100, 1000]
+
 for(let indx in eachDigitString){
-    //eachDigitInt[indx] = parseInt(eachDigitString[indx]) * base[indx]
 
     eachDigitInt[indx] = parseInt(eachDigitString[indx]) * base[indx]
-        if (!cypher[ eachDigitInt[indx] ]) {
-            console.log(eachDigitInt[indx]/base[indx])
-                let multi = eachDigitInt[indx]/base[indx]
-                let repetition = ""
-                for (let i=0; i<multi; i++) repetition += cypher[base[indx]]
-            result.push(repetition)
-            } else {
+    if (!cypher[ eachDigitInt[indx] ]) {
+  //      console.log(eachDigitInt[indx]/base[indx])
+        let multi = eachDigitInt[indx]/base[indx]
+        let repetition = ""
+        for (let i=0; i<multi; i++) repetition += cypher[base[indx]]
+        result.push(repetition)
+        } else {
 
-    result.push(cypher[eachDigitInt[indx]]) 
-                }
+        result.push(cypher[eachDigitInt[indx]]) 
+        }
     }
 
 console.log(eachDigitInt)
-console.log(result.reverse().join(""))
+//console.log(result.reverse().join(""))
 //console.log(result.split("").reverse().join(""))
 
- return num;
+ //return result.reverse().join("");
+
+const total = result.reverse().join("");
+console.log(total)
+return total
 }
 
 
 
 
 
-convertToRoman(3999) //should return the string MMMCMXCIX
+//convertToRoman(3999) //should return the string MMMCMXCIX
+//console.log( convertToRoman(3999)=="MMMCMXCIX") //should return the string MMMCMXCIX
+//console.log("MMMCMXCIX"=="MMMCMXCIX")
+//console.log( convertToRoman(3999))
+
+
+
+
+
+
+
+
+console.log(convertToRoman(2)   == "II"      )         //should return the string II.
+console.log(convertToRoman(3)   == "III"     )          //should return the string III.
+console.log(convertToRoman(4)   == "IV"      )         //should return the string IV.
+console.log(convertToRoman(5)   == "V"       )        //should return the string V.
+console.log(convertToRoman(9)   == "IX"      )         //should return the string IX.
+console.log(convertToRoman(12)  == "XII"     )          //should return the string XII.
+
+console.log(convertToRoman(16)  == "XVI"     )          //should return the string XVI.
+
+console.log(convertToRoman(29)  == "XXIX"    )           //should return the string XXIX.
+console.log(convertToRoman(44)  == "XLIV"    )           //should return the string XLIV.
+console.log(convertToRoman(45)  == "XLV"     )          //should return the string XLV.
+
+console.log(convertToRoman(68)  == "LXVIII"   )            //should return the string LXVIII
+console.log(convertToRoman(83)  == "LXXXIII"  )             //should return the string LXXXIII
+console.log(convertToRoman(97)  == "XCVII"    )           //should return the string XCVII
+
+console.log(convertToRoman(99)  == "XCIX"     )          //should return the string XCIX
+console.log(convertToRoman(400) == "CD"       )        //should return the string CD
+console.log(convertToRoman(500) == "D"        )       //should return the string D
+console.log(convertToRoman(501) == "DI"       )        //should return the string DI
+
+console.log(convertToRoman(649) == "DCXLIX"   )            //should return the string DCXLIX
+console.log(convertToRoman(798) == "DCCXCVIII")               //should return the string DCCXCVIII
+console.log(convertToRoman(891) == "DCCCXCI"  )             //should return the string DCCCXCI
+
+console.log(convertToRoman(1000)== "M"        )       //should return the string M
+console.log(convertToRoman(1004)== "MIV"      )         //should return the string MIV
+
+console.log(convertToRoman(1006)== "MVI"      )         //should return the string MVI
+
+console.log(convertToRoman(1023)== "MXXIII"   )            //should return the string MXXIII
+console.log(convertToRoman(2014)== "MMXIV"    )           //should return the string MMXIV
+console.log(convertToRoman(3999)== "MMMCMXCIX")               //should return the string MMMCMXCIX
+
+
 
 
 </script>
