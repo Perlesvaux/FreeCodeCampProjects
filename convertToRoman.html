@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#333300; color:AntiqueWhite;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+//convertToRoman(3999) should return the string MMMCMXCIX
+function convertToRoman(num) {
+const cypher = 
+{
+   1000:"M" ,
+    900:"CM",
+    500:"D" ,
+    400:"CD",
+    100:"C" ,
+     90:"XC",
+     50:"L" ,
+     40:"XL",
+     10:"X" ,
+      9:"IX",
+      5:"V" ,
+      4:"IV",
+      1:"I" 
+    }
+let eachDigitString = num.toString().split("").reverse()
+let eachDigitInt = []
+//let result = ""
+let result = []
+let base = [1, 10, 100, 1000]
+for(let indx in eachDigitString){
+    //eachDigitInt[indx] = parseInt(eachDigitString[indx]) * base[indx]
+
+    eachDigitInt[indx] = parseInt(eachDigitString[indx]) * base[indx]
+        if (!cypher[ eachDigitInt[indx] ]) {
+            console.log(eachDigitInt[indx]/base[indx])
+                let multi = eachDigitInt[indx]/base[indx]
+                let repetition = ""
+                for (let i=0; i<multi; i++) repetition += cypher[base[indx]]
+            result.push(repetition)
+            } else {
+
+    result.push(cypher[eachDigitInt[indx]]) 
+                }
+    }
+
+console.log(eachDigitInt)
+console.log(result.reverse().join(""))
+//console.log(result.split("").reverse().join(""))
+
+ return num;
+}
+
+
+
+
+
+convertToRoman(3999) //should return the string MMMCMXCIX
+
+
+</script>
+</body>
+</html>
