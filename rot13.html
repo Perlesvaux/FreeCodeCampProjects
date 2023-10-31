@@ -75,26 +75,33 @@ let result = ""
 
 for(let x of str){
 
-    let letter = toLetter[( ( toNumber[x] )+13 )%26]
+    if (x == "M")
+    {
+        result += "Z"
+    } else
+    {
 
-    if (!letter){
+        let letter = toLetter[( ( toNumber[x] )+13 )%26]
 
-        result += " "
+        if (!letter)
+        {
+            result += x
 
-    } else {
+        } else {
 
-        result += letter
+            result += letter
+        }
     }
-}
-
+    }
 return result;
 }
 
 rot13("SERR PBQR PNZC");
 
-console.log(rot13("SERR PBQR PNZC"))
-
-
+console.log(rot13("SERR PBQR PNZC")) //free code camp
+console.log(rot13("SERR CVMMN!"))  //should decode to the string FREE PIZZA!
+console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT."))//THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
+ 
 
 
 </script>
