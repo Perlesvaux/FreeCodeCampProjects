@@ -8,35 +8,11 @@
 <body>
 
 <script>
-//convertToRoman(3999) should return the string MMMCMXCIX
 
 function telephoneCheck(str) {
-
-const all_regex = [
-/\d{10}/g,  //                            5555555555
-/\(\d{3}\) \d{3}-\d{4}/g,  //             (555) 555-5555
-/\(\d{3}\)\d{3}-\d{4}/g,  //              (555)555-5555
-/\d{3}-\d{3}-\d{4}/g,  //                 555-555-5555
-/\d{3} \d{3} \d{4}/g,  //                 555 555 5555
-/\d \d{3} \d{3} \d{4}/g,  //              1 555 555 5555
-]
-
-//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^\d \d{3} \d{3} \d{4}/gm
-//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^\d \d{3} \d{3} \d{4}|^\d \d{3}-\d{3}-\d{4}|^\d \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}/gm
-//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^1 \d{3} \d{3} \d{4}|^1 \d{3}-\d{3}-\d{4}|^1 \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}/gm
-//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^1 \d{3} \d{3} \d{4}|^1 \d{3}-\d{3}-\d{4}|^1 \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}|^1\(\d{3}\)\d{3}-\d{4}/gm
 const rgx = /^\d{10}\b|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^1 \d{3} \d{3} \d{4}|^1 \d{3}-\d{3}-\d{4}|^1 \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}|^1\(\d{3}\)\d{3}-\d{4}/gm
-
 const matches = str.match(rgx)
-        console.log(matches + ` <- ${str}`)
-//let matches = 0
-//
-//for (let x of all_regex){
-//        if (str.match(x) && ( str.match(/\d/g).length==10 | str.match(/\d/g).length==11 )) matches++
-//    }
-
-//const i = -1
-    return matches!=null
+return matches!=null
 }
 
 console.log ( telephoneCheck("555-555-5555")         ==true   )      //return a boolean.
