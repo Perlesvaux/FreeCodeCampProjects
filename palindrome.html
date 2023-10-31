@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#333300; color:AntiqueWhite;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+
+    const paloma = "amo? la* pacif#ica,  pa l.oma"
+
+    function palindrome(str) {
+    let original = str.toLowerCase()
+    let result = str.toLowerCase()
+
+    //removing numbers and special chars
+    const exceptions = str.match( /[\W_]+/g )
+    if (exceptions) {
+        for (let x of exceptions){
+            result=result.replace(x, "")
+            original=original.replace(x, "")
+        }
+    }
+
+    //reversing string
+    result = result.split("").reverse().join("")
+    console.log(`${result} vs. ${original}`)
+
+    return (result == original);
+    }
+
+    //console.log(palindrome("_eye")                           )    //should return true.
+    //console.log(palindrome("race car")                       )    //should return true.
+    //console.log(palindrome("not a palindrome")               )    //should return false.
+    //console.log(palindrome("A man, a plan, a canal. Panama") )    //should return true.
+    //console.log(palindrome("never odd or even")              )    //should return true.
+    //console.log(palindrome("My age is 0, 0 si ega ym.")      )    //should return true.
+    //console.log(palindrome("1 eye for of 1 eye.")            )    //should return false.
+    //console.log(palindrome("0_0 (: /-\ :) 0-0")              )    //should return true.
+    //console.log(palindrome("five|\_/|four")                  )    //should return false.
+
+    console.log(palindrome("_eye")                           ==true)    //should return true.
+    console.log(palindrome("race car")                       ==true)    //should return true.
+    console.log(palindrome("not a palindrome")               ==false)    //should return false.
+    console.log(palindrome("A man, a plan, a canal. Panama") ==true)    //should return true.
+    console.log(palindrome("never odd or even")              ==true)    //should return true.
+    console.log(palindrome("My age is 0, 0 si ega ym.")      ==true)    //should return true.
+    console.log(palindrome("1 eye for of 1 eye.")            ==false)    //should return false.
+    console.log(palindrome("0_0 (: /-\ :) 0-0")              ==true)    //should return true.
+    console.log(palindrome("five|\_/|four")                  ==false)    //should return false.
+
+
+   // console.log(palindrome("eye"))
+   // console.log(palindrome("eye2"))
+   // console.log(palindrome("fer? nan/!@ fl00"))
+   // console.log(palindrome(paloma))
+</script>
+</body>
+</html>
