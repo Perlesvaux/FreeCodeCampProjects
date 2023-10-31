@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#333300; color:AntiqueWhite;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+//convertToRoman(3999) should return the string MMMCMXCIX
+
+function telephoneCheck(str) {
+
+const all_regex = [
+/\d{10}/g,  //                            5555555555
+/\(\d{3}\) \d{3}-\d{4}/g,  //             (555) 555-5555
+/\(\d{3}\)\d{3}-\d{4}/g,  //              (555)555-5555
+/\d{3}-\d{3}-\d{4}/g,  //                 555-555-5555
+/\d{3} \d{3} \d{4}/g,  //                 555 555 5555
+/\d \d{3} \d{3} \d{4}/g,  //              1 555 555 5555
+]
+
+//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^\d \d{3} \d{3} \d{4}/gm
+//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^\d \d{3} \d{3} \d{4}|^\d \d{3}-\d{3}-\d{4}|^\d \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}/gm
+//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^1 \d{3} \d{3} \d{4}|^1 \d{3}-\d{3}-\d{4}|^1 \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}/gm
+//const rgx = /^\d{10}|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^1 \d{3} \d{3} \d{4}|^1 \d{3}-\d{3}-\d{4}|^1 \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}|^1\(\d{3}\)\d{3}-\d{4}/gm
+const rgx = /^\d{10}\b|^\(\d{3}\) \d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^\d{3}-\d{3}-\d{4}|^\d{3} \d{3} \d{4}|^1 \d{3} \d{3} \d{4}|^1 \d{3}-\d{3}-\d{4}|^1 \(\d{3}\) \d{3}-\d{4}|^\d{3} \d{3}-\d{4}|^1\(\d{3}\)\d{3}-\d{4}/gm
+
+const matches = str.match(rgx)
+        console.log(matches + ` <- ${str}`)
+//let matches = 0
+//
+//for (let x of all_regex){
+//        if (str.match(x) && ( str.match(/\d/g).length==10 | str.match(/\d/g).length==11 )) matches++
+//    }
+
+//const i = -1
+    return matches!=null
+}
+
+console.log ( telephoneCheck("555-555-5555")         ==true   )      //return a boolean.
+console.log ( telephoneCheck("1 555-555-5555")       ==true   )        //return true.
+console.log ( telephoneCheck("1 (555) 555-5555")     ==true   )          //return true.
+console.log ( telephoneCheck("5555555555")           ==true   )    //return true.
+console.log ( telephoneCheck("555-555-5555")         ==true   )      //return true.
+console.log ( telephoneCheck("(555)555-5555")        ==true   )       //return true.
+console.log ( telephoneCheck("1(555)555-5555")       ==true   )        //return true.
+console.log ( telephoneCheck("555-5555")             ==false   )  //return false.
+console.log ( telephoneCheck("5555555")              ==false   ) //return false.
+console.log ( telephoneCheck("1 555)555-5555")       ==false   )        //return false.
+console.log ( telephoneCheck("1 555 555 5555")       ==true   )        //return true.
+console.log ( telephoneCheck("1 456 789 4444")       ==true   )        //return true.
+console.log ( telephoneCheck("123**&!!asdf#")        ==false   )       //return false.
+console.log ( telephoneCheck("55555555")             ==false   )  //return false.
+console.log ( telephoneCheck("(6054756961)")         ==false   )      //return false.
+console.log ( telephoneCheck("2 (757) 622-7382")     ==false   )          //return false.
+console.log ( telephoneCheck("0 (757) 622-7382")     ==false   )          //return false.
+console.log ( telephoneCheck("-1 (757) 622-7382")    ==false   )           //return false.
+console.log ( telephoneCheck("2 757 622-7382")       ==false   )        //return false.
+console.log ( telephoneCheck("10 (757) 622-7382")    ==false   )           //return false.
+console.log ( telephoneCheck("27576227382")          ==false   )     //return false.
+console.log ( telephoneCheck("(275)76227382")        ==false   )       //return false.
+console.log ( telephoneCheck("2(757)6227382")        ==false   )       //return false.
+console.log ( telephoneCheck("2(757)622-7382")       ==false   )        //return false.
+console.log ( telephoneCheck("555)-555-5555")        ==false   )       //return false.
+console.log ( telephoneCheck("(555-555-5555")        ==false   )       //return false.
+console.log ( telephoneCheck("(555)5(55?)-5555")     ==false   )          //return false.
+console.log ( telephoneCheck("55 55-55-555-5")       ==false   )        //return false.
+console.log ( telephoneCheck("11 555-555-5555")      ==false   )         //return false.
+</script>
+</body>
+</html>
+
+
+/\d{10}/ 5555555555
+
+/\(\d{3}\) \d{3}-\d{4}/ (555) 555-5555
+
+/\(\d{3}\)\d{3}-\d{4}/ (555)555-5555
+
+/\d{3}-\d{3}-\d{4}/  555-555-5555
+
+/\d{3} \d{3} \d{4}/  555 555 5555
+
+/\d \d{3} \d{3} \d{4}/ 1 555 555 5555
