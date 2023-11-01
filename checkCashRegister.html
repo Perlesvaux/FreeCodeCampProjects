@@ -53,9 +53,13 @@ let token = change_coins*100                  //75
 
 for (let x in tokens){ //if token is small enough and there's enough coins in drawer...
     if (token%tokens[x]<token && pseudoDrawer[x]>=token && token!=0){
-       let needed = parseInt( token/tokens[x] )             //compute how much is required (till exhaustion)
-       token-=needed*tokens[x]                              //update token value.
-       pseudoDrawer[x]-=needed*tokens[x]
+       let needed = parseInt( token/tokens[x] )*tokens[x]             //compute how much is required (till exhaustion)
+            if (pseudoDrawer[x]-needed <=0){
+                   needed =needed-pseudoDrawer[x]
+                } 
+       token-=needed                              //update token value.
+       pseudoDrawer[x]-=needed
+       if (pseudoDrawer[x]<=0) token 
        //token -= needed
        console.log(  " value:" +  tokens[x] + " in drawer:" + pseudoDrawer[x] + " current:" + token)
 
