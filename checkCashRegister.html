@@ -49,8 +49,25 @@ console.log( array_change[1] )
 
 for (let z in coins){
     // if coin is small enough and there's enough in drawer
-    if (array_change[1]%coins[z]<array_change[1] && drawer[z]>=array_change[1]){
-        change[z] = parseFloat(array_change[1]/coins[z])
+    if (array_change[1]%coins[z]<array_change[1] && drawer[z]>=array_change[1] && array_change[1]!=0){
+       // change[z] = parseFloat(array_change[1]/coins[z])
+        //compute how much of a coin is needed (till exhaustion)
+        let needed = parseFloat(array_change[1]/coins[z])
+        drawer[z]-=needed
+        if (drawer[z]<=0) needed+=drawer[z]
+        console.log(drawer[z])
+        //let actual = needed-
+
+        console.log(parseInt((array_change[1]/coins[z])))
+        console.log(needed)
+
+
+        array_change[1]=array_change[1]-(coins[z]*needed)
+        //change[z] = parseFloat(array_change[1]/coins[z])
+        //change[z] = parseInt((array_change[1]/coins[z]).toString().split(".")[1])
+            console.log(array_change[1])
+        change[z]=needed
+
 
     }
 }
@@ -67,12 +84,13 @@ for (let z in coins){
 
 }
 
-checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
-const rslt = checkCashRegister(19.5, 20, [["PENNY", 0.41], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-console.log(rslt)
-const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 5.41], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-console.log(rslt2)
-
+//checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+//const rslt = checkCashRegister(19.5, 20, [["PENNY", 0.41], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+//console.log(rslt)
+//const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 5.41], ["NICKEL", 5], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+//console.log(rslt2)
+const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 100], ["NICKEL", 5], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+console.log(rslt3)
 
 
 
