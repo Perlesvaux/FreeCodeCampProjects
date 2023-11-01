@@ -88,9 +88,9 @@ for (let z in coins){
 //console.log(rslt)
 //const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 5.41], ["NICKEL", 5], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 //console.log(rslt2)
-const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 100], ["NICKEL", 5], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 100], ["NICKEL", 5], ["DIME", 10], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 console.log(rslt3)
-
+//TODO: see the integers in "PENNY", "NICKEL", etc? They should be 1.00, 0.50, etc... i.e.: not their amount, but their equivalent in USD.
 
 
 </script>
