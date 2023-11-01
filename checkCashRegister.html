@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color:#333300; color:AntiqueWhite;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+
+
+function checkCashRegister(price, cash, cid) {
+//cypher = {
+//"PENNY": 0.01,"NICKEL": 0.05,"DIME": 0.1,"QUARTER": 0.25,"ONE": 1,"FIVE": 5,"TEN": 10,"TWENTY": 20,"ONE HUNDRED": 100
+//}
+bills = {
+"ONE HUNDRED": 100,"TWENTY": 20,"TEN": 10,"FIVE": 5,"ONE": 1
+}
+
+coins = {
+"QUARTER": 0.25,"DIME": 0.1,"NICKEL": 0.05,"PENNY": 0.01,
+}
+
+const drawer = {}
+let current_cash = 0
+cid.forEach(( element )=>{
+        drawer[element[0]]=element[1]
+        current_cash += element[1]})
+
+const raw_change = cash-price
+    if(raw_change>current_cash) return {"status": "INSUFFICIENT_FUNDS", "change": []} 
+
+    //const string_change = (raw_change%1>0)? raw_change.toString().split(".")
+
+const array_change = raw_change.toString().split(".")
+array_change[0] = parseInt(array_change[0])
+array_change[1] = 0.01*parseFloat(array_change[1])
+
+let change = {}
+for (let x in bills){
+    // if bill is small enough and there's enough in drawer
+    if (array_change[0]%bills[x]<array_change[0] && drawer[x]>=array_change[0]){
+       change[x] = parseInt(array_change[0]/bills[x]) 
+    }
+}
+//    for (let x in cypher){
+//             
+//            (drawer[x]/cypher[x])
+//        } 
+    //console.log(current_cash)
+        
+        
+  //let change;
+  return change;
+
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+const rslt = checkCashRegister(19.5, 20, [["PENNY", 0.41], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+console.log(rslt)
+const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 0.41], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+console.log(rslt2)
+
+
+
+
+</script>
+</body>
+</html>
