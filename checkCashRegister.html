@@ -86,7 +86,7 @@ for (let x in pseudoDrawer){
     cash_after_purchase += pseudoDrawer[x]*0.01
 }
     console.log(`before: ${current_cash}  after: ${cash_after_purchase}`)
-const change = []
+let change = []
     for (let x in _change){
             change.push([x, _change[x]])
         }
@@ -112,6 +112,8 @@ const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 5.00], ["DI
 console.log(rslt3)
 //TODO: see the integers in "PENNY", "NICKEL", etc? They should be 1.00, 0.50, etc... i.e.: not their amount, but their equivalent in USD.
 
+const rslt4 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0.75], ["ONE", 3], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+console.log(rslt4)
 
 </script>
 </body>
