@@ -11,20 +11,21 @@
 
 
 function checkCashRegister(price, cash, cid) {
+"use strict";
 //cypher = {
 //"PENNY": 0.01,"NICKEL": 0.05,"DIME": 0.1,"QUARTER": 0.25,"ONE": 1,"FIVE": 5,"TEN": 10,"TWENTY": 20,"ONE HUNDRED": 100
 //}
 let _change = {}
 
-bills = {
+const bills = {
 "ONE HUNDRED": 100,"TWENTY": 20,"TEN": 10,"FIVE": 5,"ONE": 1
 }
 
-coins = {
+const coins = {
 "QUARTER": 0.25,"DIME": 0.1,"NICKEL": 0.05,"PENNY": 0.01,
 }
 
-tokens = {
+const tokens = {
 "QUARTER": 25,"DIME": 10,"NICKEL": 5,"PENNY": 1,
 }
 
@@ -45,7 +46,7 @@ let _change_bills = parseInt(raw__change)       //3
 
 for (let x in bills){ //if bill is small enough and there's enough in drawer...
     if (_change_bills%bills[x]<_change_bills && drawer[x]>=_change_bills){
-       needed = parseInt(_change_bills/bills[x])*100
+       let needed = parseInt(_change_bills/bills[x])*100
        if (pseudoDrawer[x]-needed<0) needed = needed-pseudoDrawer[x]
        _change_bills -= needed*0.01
        pseudoDrawer[x]=(pseudoDrawer[x]-needed>=0)? pseudoDrawer[x]-needed:0;
