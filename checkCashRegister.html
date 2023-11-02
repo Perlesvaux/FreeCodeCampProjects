@@ -14,7 +14,7 @@ function checkCashRegister(price, cash, cid) {
 //cypher = {
 //"PENNY": 0.01,"NICKEL": 0.05,"DIME": 0.1,"QUARTER": 0.25,"ONE": 1,"FIVE": 5,"TEN": 10,"TWENTY": 20,"ONE HUNDRED": 100
 //}
-let change = {}
+let _change = {}
 
 bills = {
 "ONE HUNDRED": 100,"TWENTY": 20,"TEN": 10,"FIVE": 5,"ONE": 1
@@ -36,26 +36,26 @@ cid.forEach(( element )=>{
         pseudoDrawer[element[0]]=element[1]*100
         current_cash += element[1]})
 
-const raw_change = cash-price                   //3.75
-if(raw_change>current_cash) return {"status": "INSUFFICIENT_FUNDS", "change": []} 
+const raw__change = cash-price                   //3.75
+if(raw__change>current_cash) return {"status": "INSUFFICIENT_FUNDS", "_change": []} 
 
 
-let change_bills_initial = parseInt(raw_change)       //3
-let change_bills = parseInt(raw_change)       //3
+let _change_bills_initial = parseInt(raw__change)       //3
+let _change_bills = parseInt(raw__change)       //3
 
 for (let x in bills){ //if bill is small enough and there's enough in drawer...
-    if (change_bills%bills[x]<change_bills && drawer[x]>=change_bills){
-       needed = parseInt(change_bills/bills[x])*100
+    if (_change_bills%bills[x]<_change_bills && drawer[x]>=_change_bills){
+       needed = parseInt(_change_bills/bills[x])*100
        if (pseudoDrawer[x]-needed<0) needed = needed-pseudoDrawer[x]
-       change_bills -= needed*0.01
+       _change_bills -= needed*0.01
        pseudoDrawer[x]=(pseudoDrawer[x]-needed>=0)? pseudoDrawer[x]-needed:0;
-       change[x] = needed*0.01 
+       _change[x] = needed*0.01 
             
         }
     }
-console.log(change_bills)
-const change_coins = raw_change-change_bills_initial    //0.75
-let token = change_bills+change_coins*100                    //75
+console.log(_change_bills+ " >"+  _change_bills_initial)
+const _change_coins = raw__change-_change_bills_initial    //0.75
+let token = _change_bills*100+_change_coins*100                    //75
 
 for (let x in tokens){ //if token is small enough and there's enough coins in drawer...
     if (token%tokens[x]<token && pseudoDrawer[x]>=token && token!=0){
@@ -72,9 +72,10 @@ for (let x in tokens){ //if token is small enough and there's enough coins in dr
 //            if ( drawer[x]*100 - needed <= 0) {
                     
                 //}
-       //change[x] = token/tokens[x] 
-       change[x] = parseFloat( parseFloat(needed*0.01).toFixed(2) ) 
+       //_change[x] = token/tokens[x] 
+       _change[x] = parseFloat( parseFloat(needed*0.01).toFixed(2) ) 
        console.log(needed) 
+            console.log(_change_bills)
         
     }
 }
@@ -85,19 +86,28 @@ for (let x in pseudoDrawer){
     cash_after_purchase += pseudoDrawer[x]*0.01
 }
     console.log(`before: ${current_cash}  after: ${cash_after_purchase}`)
-const change_arr = []
-    for (let x in change){
-            change_arr.push([x, change[x]])
+const change = []
+    for (let x in _change){
+            change.push([x, _change[x]])
         }
-return change;
+
+    //console.log(change)
+    let status=(cash_after_purchase>0)? "OPEN":"CLOSED"
+
+    if (status == "CLOSED"){
+    change = cid
+    return {status, change}
+        }
+    _change = {status, change}
+return _change;
 
 }
 
 //checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
 const rslt = checkCashRegister(19.5, 20, [["PENNY", 5.41], ["NICKEL", 5.00], ["DIME", 0], ["QUARTER", 5.00], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 console.log(rslt)
-//const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 5.41], ["NICKEL", 5], ["DIME", 0], ["QUARTER", 0], ["ONE", 16], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-//console.log(rslt2)
+const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 5], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+console.log(rslt2)
 const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 5.00], ["DIME", 0.80 ], ["QUARTER", 0], ["ONE", 3], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 console.log(rslt3)
 //TODO: see the integers in "PENNY", "NICKEL", etc? They should be 1.00, 0.50, etc... i.e.: not their amount, but their equivalent in USD.
