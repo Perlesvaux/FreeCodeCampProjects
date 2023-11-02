@@ -45,16 +45,18 @@ let _change_bills_initial = parseInt(raw__change)       //3
 let _change_bills = parseInt(raw__change)       //3
 
 for (let x in bills){ //if bill is small enough and there's enough in drawer...
-    if (_change_bills%bills[x]<_change_bills && drawer[x]>=_change_bills){
+    if (_change_bills%bills[x]<_change_bills ){
        let needed = parseInt(_change_bills/bills[x])*100
-       if (pseudoDrawer[x]-needed<0) needed = needed-pseudoDrawer[x]
+       console.log(needed*0.01*bills[x] + " needed , but there's only: " + pseudoDrawer[x]*0.01 + " " + x) 
+            if (needed*0.01*bills[x]>pseudoDrawer[x]*0.01)  needed = pseudoDrawer[x]
+       console.log(`therefore needed:, ${needed}`) 
+       //if (pseudoDrawer[x]-needed<0) needed = needed-pseudoDrawer[x]
        _change_bills -= needed*0.01
        pseudoDrawer[x]=(pseudoDrawer[x]-needed>=0)? pseudoDrawer[x]-needed:0;
        _change[x] = needed*0.01 
-            
         }
     }
-console.log(_change_bills+ " >"+  _change_bills_initial)
+console.log(_change_bills_initial+ " ->"+  _change_bills)
 const _change_coins = raw__change-_change_bills_initial    //0.75
 let token = _change_bills*100+_change_coins*100                    //75
 
@@ -105,17 +107,18 @@ return _change;
 }
 
 //checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
-const rslt = checkCashRegister(19.5, 20, [["PENNY", 5.41], ["NICKEL", 5.00], ["DIME", 0], ["QUARTER", 5.00], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-console.log(rslt)
-const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 5], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-console.log(rslt2)
-const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 5.00], ["DIME", 0.80 ], ["QUARTER", 0], ["ONE", 3], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-console.log(rslt3)
+//const rslt = checkCashRegister(19.5, 20, [["PENNY", 5.41], ["NICKEL", 5.00], ["DIME", 0], ["QUARTER", 5.00], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+//console.log(rslt)
+//const rslt2 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 5], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+//console.log(rslt2)
+//const rslt3 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 5.00], ["DIME", 0.80 ], ["QUARTER", 0], ["ONE", 3], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+//console.log(rslt3)
 //TODO: see the integers in "PENNY", "NICKEL", etc? They should be 1.00, 0.50, etc... i.e.: not their amount, but their equivalent in USD.
-
-const rslt4 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0.75], ["ONE", 3], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
-console.log(rslt4)
-
+//const rslt4 = checkCashRegister(16.25, 20, [["PENNY", 0], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0.75], ["ONE", 3], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+//console.log(rslt4)
+//{status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}
+let rslt1=checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])
+console.log(rslt1);
 </script>
 </body>
 </html>
