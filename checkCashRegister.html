@@ -48,6 +48,7 @@ for (let x in bills){ //if bill is small enough and there's enough in drawer...
        needed = parseInt(change_bills/bills[x])*100
        if (pseudoDrawer[x]-needed<0) needed = needed-pseudoDrawer[x]
        change_bills -= needed*0.01
+       pseudoDrawer[x]=(pseudoDrawer[x]-needed>=0)? pseudoDrawer[x]-needed:0;
        change[x] = needed*0.01 
             
         }
@@ -59,7 +60,7 @@ let token = change_bills+change_coins*100                    //75
 for (let x in tokens){ //if token is small enough and there's enough coins in drawer...
     if (token%tokens[x]<token && pseudoDrawer[x]>=token && token!=0){
        let needed = parseInt( token/tokens[x] )*tokens[x]             //compute how much is required (till exhaustion)
-            if (pseudoDrawer[x]-needed <=0){
+            if (pseudoDrawer[x]-needed <0){
                    needed =needed-pseudoDrawer[x]
                 } 
        token-=needed                              //update token value.
