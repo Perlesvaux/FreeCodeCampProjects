@@ -40,16 +40,21 @@ const raw_change = cash-price                   //3.75
 if(raw_change>current_cash) return {"status": "INSUFFICIENT_FUNDS", "change": []} 
 
 
-const change_bills = parseInt(raw_change)       //3
+let change_bills_initial = parseInt(raw_change)       //3
+let change_bills = parseInt(raw_change)       //3
 
 for (let x in bills){ //if bill is small enough and there's enough in drawer...
     if (change_bills%bills[x]<change_bills && drawer[x]>=change_bills){
-       change[x] = parseInt(change_bills/bills[x]) 
+       needed = parseInt(change_bills/bills[x])*100
+       if (pseudoDrawer[x]-needed<0) needed = needed-pseudoDrawer[x]
+       change_bills -= needed*0.01
+       change[x] = needed*0.01 
+            
+        }
     }
-}
-
-const change_coins = raw_change-change_bills    //0.75
-let token = change_coins*100                    //75
+console.log(change_bills)
+const change_coins = raw_change-change_bills_initial    //0.75
+let token = change_bills+change_coins*100                    //75
 
 for (let x in tokens){ //if token is small enough and there's enough coins in drawer...
     if (token%tokens[x]<token && pseudoDrawer[x]>=token && token!=0){
