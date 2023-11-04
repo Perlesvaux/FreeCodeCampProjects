@@ -53,7 +53,6 @@ class Category:
 
 
 
-
 def create_spend_chart(categories):
 
     y_axis = [
@@ -87,9 +86,6 @@ def create_spend_chart(categories):
             else:
                 y["o"]+= "   "
 
-        # if x <= 100: _100["o"]+="o  "
-
-
 
     whole = "Percentage spent by category\n"
     y_axis.reverse()
@@ -107,34 +103,11 @@ def create_spend_chart(categories):
     for x in categories:
         titles.append( x.name.ljust(largest) )
 
-    # width_titles = len(titles)
-    # lacking_titles = 5-width_titles
-
-    # print(f">>>>{ lacking_titles }")
-    # print(f">>>>{ width_titles }")
-
-    # if lacking_titles>0:
-    #     for i in range(lacking_titles):
-    #         titles.append(" "*largest)
-
-
-    # for x in titles:
-    #     for y in x:
-    #         whole+=f"{y}\b"
-
-    # for i, val in enumerate( titles ):
-    #     for n in range(largest):
-    #         whole+=val[n]+"\n"
-
 
     for x in range(largest):
         for title in titles:
             whole+=f"  {title[x]}"
         whole+="  \n"
-
-
-
-    print(whole)
 
     return whole[:-1]
 
