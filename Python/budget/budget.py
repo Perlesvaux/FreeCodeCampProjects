@@ -12,7 +12,7 @@ class Category:
     return sum_up
 
   def check_funds(self, amount):
-    return self.get_balance()>amount
+    return self.get_balance()>=amount
 
   def deposit(self, amount, description=""):
     self.ledger.append({"amount": amount, "description": description})
