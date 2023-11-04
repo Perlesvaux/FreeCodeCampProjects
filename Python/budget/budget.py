@@ -42,11 +42,11 @@ class Category:
     whole = (30-len(self.name))//2*"*" + self.name + (30-len(self.name))//2*"*" + "\n"
     for x in self.ledger:
         if len(x["description"])>23:
-            whole += x["description"][:23].ljust(23) + "{:.2f}".format(x["amount"]) + "\n"
+            whole += x["description"][:23].ljust(23) + " {:.2f}".format(x["amount"]) + "\n"
         else:
-            whole += x["description"].ljust(23) + "{:.2f}".format(x["amount"]) + "\n"
+            whole += x["description"].ljust(23) + " {:.2f}".format(x["amount"]).rjust(7) + "\n"
 
-    whole += f"Total: {self.get_balance()}".ljust(30)
+    whole += f"Total: {self.get_balance()}"
 
     return whole
 
