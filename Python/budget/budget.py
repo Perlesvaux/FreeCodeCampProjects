@@ -136,7 +136,7 @@ def create_spend_chart(categories):
 
     print(whole)
 
-    return whole
+    return whole[:-1]
 
 
 
