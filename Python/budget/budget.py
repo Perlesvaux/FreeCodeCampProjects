@@ -55,17 +55,6 @@ class Category:
 
 
 def create_spend_chart(categories):
-    # _100={"name":"100|", "o":" "}
-    # _009={"name":" 90|", "o":" "}
-    # _008={"name":" 80|", "o":" "}
-    # _007={"name":" 70|", "o":" "}
-    # _006={"name":" 60|", "o":" "}
-    # _005={"name":" 50|", "o":" "}
-    # _004={"name":" 40|", "o":" "}
-    # _003={"name":" 30|", "o":" "}
-    # _002={"name":" 20|", "o":" "}
-    # _001={"name":" 10|", "o":" "}
-    # _000={"name":"  0|", "o":" "}
 
     y_axis = [
         {"value":100, "name":"100|", "o":" "},
@@ -95,6 +84,9 @@ def create_spend_chart(categories):
         for y in y_axis:
             if x >= y["value"]:
                 y["o"]+= "o  "
+            else:
+                y["o"]+= "   "
+
         # if x <= 100: _100["o"]+="o  "
 
 
@@ -111,9 +103,19 @@ def create_spend_chart(categories):
         if len( x.name ) > largest:
             largest=len(x.name)
 
-    titles=[" "*largest] #originally 4
+    titles=[" "*largest ] #originally 4
     for x in categories:
         titles.append( x.name.ljust(largest) )
+
+    # width_titles = len(titles)
+    # lacking_titles = 5-width_titles
+
+    # print(f">>>>{ lacking_titles }")
+    # print(f">>>>{ width_titles }")
+
+    # if lacking_titles>0:
+    #     for i in range(lacking_titles):
+    #         titles.append(" "*largest)
 
 
     # for x in titles:
@@ -128,7 +130,7 @@ def create_spend_chart(categories):
     for x in range(largest):
         for title in titles:
             whole+=f"  {title[x]}"
-        whole+="\n"
+        whole+="  \n"
 
 
 
