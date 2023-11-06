@@ -18,9 +18,17 @@ from prob_calculator import experiment
 #                   num_experiments=5)
 
 
-hat = Hat(black=5, red=5)
+# hat = Hat(black=5, red=5)
+# probability = experiment(hat=hat,
+#                          expected_balls={"red":1, "black":1},
+#                   num_balls_drawn=2,
+#                   num_experiments=1000)
+# print(probability)
+
+
+hat = Hat(black=9, red=1)
 probability = experiment(hat=hat,
-                         expected_balls={"red":1, "black":1},
-                  num_balls_drawn=2,
+                         expected_balls={"red":1 },
+                  num_balls_drawn=1,
                   num_experiments=1000)
 print(probability)

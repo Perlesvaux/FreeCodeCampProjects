@@ -34,11 +34,6 @@ class Hat:
             pseudo_hat.remove(selection)
         return result
 
-    def __len__(self):
-        return len(self.keys)
-
-
-
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     expected = []
@@ -63,8 +58,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
     print(f"{success} -> {num_experiments}")
     print(len(hat.contents))
-    # return ( num_experiments/success )
-    return success/(num_experiments*len(hat))
+    return ( num_experiments/success )
 
 
 
