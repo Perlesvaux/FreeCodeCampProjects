@@ -36,31 +36,25 @@ class Hat:
 
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    expected = []
-    for x in expected_balls:
-        for i in range(expected_balls[x]):
-            expected.append(x)
-    # print(expected)
-    # print(hat.reserve)
+  successes = 0
+  expected_single_colors = tuple(color for color in expected_balls)
 
-    expected_hand=set(expected)
-    success = 0
-    for x in range(num_experiments):
-        pseudo_hat=copy.deepcopy(hat)
-        drawn = pseudo_hat.draw(num_balls_drawn)
-        hand = set(drawn)
-        # hand = set(hat.draw(num_balls_drawn))
-        # print(f"{hand} should be {expected_hand}")
-        print(f"{hand} -> {expected_hand} | {drawn}")
-        if  expected_hand.issubset(hand):
-            success+=1
+  for _ in range(num_experiments):
+    copy_hat = copy.deepcopy(hat)
+    drawn_balls = copy_hat.draw(num_balls_drawn)
+    num_fulfilled_colors = 0
+
+    for color in expected_single_colors:
+
+      if drawn_balls.count(color) >= expected_balls[color]:
+        num_fulfilled_colors += 1
 
 
-    print(f"{success} -> {num_experiments}")
-    print(len(hat.contents))
-    return ( num_experiments/success )
+      if num_fulfilled_colors == len(expected_single_colors):
+        successes += 1
 
-
+  probability = successes / num_experiments
+  return probability
 
 
 
