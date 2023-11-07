@@ -6,3 +6,10 @@
 - Caesars Cipher	
 - Telephone Number Validator	
 - Cash Register
+
+## [Scientific Computing with Python](https://www.freecodecamp.org/certification/Perlesvaux/scientific-computing-with-python-v7)
+- Arithmetic Formatter	
+- Time Calculator	
+- Budget App	
+- Polygon Area Calculator	
+- Probability Calculator
