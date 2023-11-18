@@ -1,0 +1,54 @@
+#root {
+    margin: 0 auto;
+    padding: 2rem;
+    /* text-align: center; */
+    /* transition: 3s; */
+}
+
+#editor{
+    background: LightPink;
+    padding: 13px;
+    min-height: 500px;
+    border-radius: 0px 0px 23px 23px;
+    overflow: auto;
+}
+
+#preview{
+    background: Thistle;
+    padding: 13px;
+    min-height: 500px;
+    border-radius: 0px 0px 23px 23px;
+    overflow: auto;
+}
+
+#preview img{
+    max-width: 100%;
+}
+
+#he-editor {
+    background:Salmon;
+    color:Snow;
+    border-radius:23px 0px 0px 0px; 
+    font-size:large; 
+    font-weight: bold;
+}
+
+#he-preview{
+    background:Plum;
+    color:Snow;
+    border-radius:0px 23px 0px 0px;
+    font-size:large;
+    font-weight: bold;
+}
+
+.container{
+    background: MistyRose;
+    border-radius:50px;
+    padding: 33px;
+}
+
+#margins .well{
+    background: MistyRose;
+    border:none;
+    box-shadow:none;
+}
