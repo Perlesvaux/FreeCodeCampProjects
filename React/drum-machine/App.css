@@ -6,5 +6,22 @@
 }
 
 .drum-pad{
-    background: pink;
+    font-weight: bold;
+    text-shadow: black 2px 2px 2px;
+    background: LightSkyBlue;
+}
+
+
+@keyframes redYellow {
+  from {background-color: red;
+transform: rotate(20deg);
+transform: scale(1.5);
+  }
+  to {background-color: yellow;}
+transform: rotate(-20deg);
+transform: scale(1.0);
+}
+
+.press{
+  animation: redYellow 0.5s;
 }
