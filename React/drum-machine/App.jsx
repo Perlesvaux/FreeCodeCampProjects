@@ -16,7 +16,6 @@ function DrumKey({elements, playTrack}){
 function App(){
     const [display, setDisplay] = useState("")
     const keyref = useRef()
-    const screen = useRef()
 
     const elements =     [
         {name:"key1", letter:"Q", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"    },
@@ -31,43 +30,32 @@ function App(){
     ]
 
     function playTrack(HTMLelement){
-       HTMLelement.target.children[0].currentTime = 0
+       HTMLelement.target.children[0].currentTime = 0;
        HTMLelement.target.children[0].play(); 
        setDisplay(HTMLelement.target.id); 
-       setTimeout(
-       ()=>{
-            HTMLelement.target.classList.toggle("press")
-            screen.current.classList.toggle("screen")
-           } 
-            , 500) 
-    HTMLelement.target.classList.toggle("press")
-    screen.current.classList.toggle("screen")
-
+       setTimeout(()=>{HTMLelement.target.classList.toggle("press")}, 350); 
+       setTimeout(()=>{HTMLelement.target.classList.toggle("press")}, 1); 
     }
 
     useEffect(()=>{
-     document.addEventListener("keydown", (event)=>{
-        if (event.key.length === 1) {
-        const pressed = Array.from(keyref.current.children).find(
-          (x) => x.children[0].id === event.key.toUpperCase()
-        );
-        console.log(keyref.current)
-        if (pressed) pressed.click();
-            
-      }
-    });
+        document.addEventListener("keydown", (event)=>{
+            if (event.key.length === 1) {
+            const pressed = Array.from(keyref.current.children).find((x) => x.children[0].id === event.key.toUpperCase());
+            if (pressed) pressed.click();
+            }
+        });
     },[])
     
     return(
     <div id="drum-machine" className="container well well-lg">  
         <div className="row"> 
-    <div id="keys" className="well col-xs-6" ref={keyref}>
-    {
-        elements.map(( x )=> <DrumKey key={x.letter} elements={x} playTrack={ playTrack }/>)
-    }
-    </div> 
-    <div id="display" className="block-center well col-xs-6" ref={screen}>{display}</div>
-</div>
+            <div id="keys" className="well col-xs-6" ref={keyref}>
+            {
+                elements.map(( x )=> <DrumKey key={x.letter} elements={x} playTrack={ playTrack }/>)
+            }
+            </div> 
+            <div id="display" className="block-center well col-xs-6" >{display}</div>
+        </div>
     </div>)
 }
 

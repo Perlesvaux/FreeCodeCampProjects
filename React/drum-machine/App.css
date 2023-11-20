@@ -8,7 +8,7 @@
 .drum-pad{
     font-weight: bold;
     text-shadow: black 2px 2px 2px;
-    background: LightSlateGrey ;
+    background: RosyBrown ;
     color:Linen;
     height:6em;
 }
@@ -27,19 +27,20 @@ transform: scale(1.0);}
   z-index:1;
 }
 
-@keyframes surprise {
-  0% {
-transform: translateY(1em);
-  }
-  50% {transform: rotate(350deg) scale(1.4);}
-  100% {
-transform: scale(1.0);}
+@keyframes myfirst {
+  0%   { top: 0em; transform: scale(0.9);}
+  25%  {  transform: scale(1.2)}
+  50%  { top: 16em; transform: scale(0.9)}
+  75%  {  transform: scale(1.2)}
+ 100%  { top: 0em; transform: scale(0.9);}
 }
 
-.screen{
-    animation: surprise 2s;
-    z-index:1;
+
+.row{
+    background:SeaGreen;
 }
+
+
 
 #display{
     background-color:DimGrey;
@@ -48,15 +49,19 @@ transform: scale(1.0);}
     text-shadow: SeaGreen 1px 1px;
     width:5em;
     height:5em;
+    animation: myfirst 11s infinite;
+
 }
 
 #keys{
-    width:fit-content;
     overflow: fit-content;
     width:fit-content;
+    background:DarkSeaGreen;
 }
 
 #drum-machine{
     width:fit-content;
     overflow: fit-content;
+    background: SeaGreen;
+
 }
