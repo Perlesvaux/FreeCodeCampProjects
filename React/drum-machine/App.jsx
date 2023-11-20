@@ -16,6 +16,7 @@ function DrumKey({elements, playTrack}){
 function App(){
     const [display, setDisplay] = useState("")
     const keyref = useRef()
+    const screen = useRef()
 
     const elements =     [
         {name:"key1", letter:"Q", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"    },
@@ -32,12 +33,15 @@ function App(){
     function playTrack(HTMLelement){
        HTMLelement.target.children[0].currentTime = 0
        HTMLelement.target.children[0].play(); 
-       setDisplay( HTMLelement.target.id); 
-       // HTMLelement.target.classList.toggle("press"); 
+       setDisplay(HTMLelement.target.id); 
        setTimeout(
-       ()=>{HTMLelement.target.classList.toggle("press")} 
-            , 1000) 
+       ()=>{
+            HTMLelement.target.classList.toggle("press")
+            screen.current.classList.toggle("screen")
+           } 
+            , 500) 
     HTMLelement.target.classList.toggle("press")
+    screen.current.classList.toggle("screen")
 
     }
 
@@ -49,18 +53,21 @@ function App(){
         );
         console.log(keyref.current)
         if (pressed) pressed.click();
+            
       }
     });
     },[])
     
     return(
     <div id="drum-machine" className="container well well-lg">  
-    <div id="keys" ref={keyref}>
+        <div className="row"> 
+    <div id="keys" className="well col-xs-6" ref={keyref}>
     {
         elements.map(( x )=> <DrumKey key={x.letter} elements={x} playTrack={ playTrack }/>)
     }
     </div> 
-    <div id="display" className="block-center well">{display}</div>
+    <div id="display" className="block-center well col-xs-6" ref={screen}>{display}</div>
+</div>
     </div>)
 }
 
