@@ -14,4 +14,4 @@
 - Polygon Area Calculator	
 - Probability Calculator
 
-[React Project 1](React/drum-machine/index.html)
+[React Project 1](React/drum-machine/monolith.html)
