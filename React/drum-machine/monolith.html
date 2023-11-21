@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Bootstrap! -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- FreeCodeCamp Test CDN. Replace as needed -->
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js" defer></script>
+
+    <!-- STYLES GO HERE -->
+    <style>
+#root {
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    transition: 3s;
+}
+
+.drum-pad{
+    font-weight: bold;
+    text-shadow: black 2px 2px 2px;
+    background: RosyBrown ;
+    color:Linen;
+    height:6em;
+}
+
+@keyframes redYellow {
+  0% {background-color: red;
+transform: rotate(-5deg) scale(0.7);
+  }
+  50% {transform: rotate(5deg) scale(1.4)}
+  100% {background-color: yellow;
+transform: scale(1.0);}
+}
+
+.press{
+  animation: redYellow 0.5s;
+  z-index:1;
+}
+
+@keyframes myfirst {
+  0%   { top: 0em; transform: scale(0.9);}
+  25%  {  transform: scale(1.2)}
+  50%  { top: 16em; transform: scale(0.9)}
+  75%  {  transform: scale(1.2)}
+ 100%  { top: 0em; transform: scale(0.9);}
+}
+
+
+.row{
+    background:SeaGreen;
+}
+
+
+
+#display{
+    background-color:DimGrey;
+    color:SpringGreen;
+    font-weight: bold;
+    text-shadow: SeaGreen 1px 1px;
+    width:5em;
+    height:5em;
+    animation: myfirst 11s infinite;
+
+}
+
+#keys{
+    overflow: fit-content;
+    width:fit-content;
+    background:DarkSeaGreen;
+}
+
+#drum-machine{
+    width:fit-content;
+    overflow: fit-content;
+    background: SeaGreen;
+
+}
+
+    </style>
+
+    <!-- REACT APP GOES HERE -->
+    <script type="text/babel" data-type="module" defer>
+"use strict";
+
+import React, {
+  useState,  
+  StrictMode,
+  useEffect,
+  useRef
+} from "https://esm.sh/react?dev";
+import { createRoot } from "https://esm.sh/react-dom/client?dev";
+
+function DrumKey({elements, playTrack}){
+
+    return(<button  onClick={playTrack} id={elements.name} className="drum-pad col-xs-4 btn btn-primary ">{elements.letter}<audio className="clip" id={elements.letter} src={elements.src}/></button>)
+}
+
+function App(){
+    const [display, setDisplay] = useState("")
+    const keyref = useRef()
+
+    const elements =     [
+        {name:"key1", letter:"Q", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"    },
+        {name:"key2", letter:"W", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3"    }, 
+        {name:"key3", letter:"E", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3"    },
+        {name:"key4", letter:"A", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3"  },
+        {name:"key5", letter:"S", src:"https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3"    },
+        {name:"key6", letter:"D", src:"https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3"      },
+        {name:"key7", letter:"Z", src:"https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3"  },
+        {name:"key8", letter:"X", src:"https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3"  },
+        {name:"key9", letter:"C", src:"https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3"      },
+    ]
+
+    function playTrack(HTMLelement){
+       HTMLelement.target.children[0].currentTime = 0;
+       HTMLelement.target.children[0].play(); 
+       setDisplay(HTMLelement.target.id); 
+       setTimeout(()=>{HTMLelement.target.classList.toggle("press")}, 350); 
+       setTimeout(()=>{HTMLelement.target.classList.toggle("press")}, 1); 
+    }
+
+    useEffect(()=>{
+        document.addEventListener("keydown", (event)=>{
+            if (event.key.length === 1) {
+            const pressed = Array.from(keyref.current.children).find((x) => x.children[0].id === event.key.toUpperCase());
+            if (pressed) pressed.click();
+            }
+        });
+    },[])
+    
+    return(
+    <div id="drum-machine" className="container well well-lg">  
+        <div className="row"> 
+            <div id="keys" className="well col-xs-6" ref={keyref}>
+            {
+                elements.map(( x )=> <DrumKey key={x.letter} elements={x} playTrack={ playTrack }/>)
+            }
+            </div> 
+            <div id="display" className="block-center well col-xs-6" >{display}</div>
+        </div>
+    </div>)
+}
+
+createRoot(document.getElementById("root")).render(<App />);
+
+    </script> 
+
+    <title>drum-machine</title>
+  </head>
+    <body style="background:LightSlateGrey;">
+        <div id="root"></div>
+    </body>
+</html>
