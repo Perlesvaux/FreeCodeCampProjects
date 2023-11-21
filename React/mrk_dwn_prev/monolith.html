@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- marked cdnjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/10.0.0/marked.min.js" integrity="sha512-EjCqglelq9tO9KdT2iRYtcj19Q8sSXblMy+5SBfogeh5TvLwmRh9dz5l1uEwNO40/cZInZsr3jti2JCNMZJsng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- DOMpurify -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Bootstrap! -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- FreeCodeCamp Test CDN. Replace as needed -->
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js" defer></script>
+
+    <!-- STYLES GO HERE -->
+    <style>
+#root {
+    margin: 0 auto;
+    padding: 2rem;
+    /* text-align: center; */
+    /* transition: 3s; */
+}
+
+#editor{
+    background: LightPink;
+    padding: 13px;
+    min-height: 500px;
+    border-radius: 0px 0px 23px 23px;
+    overflow: auto;
+}
+
+#preview{
+    background: Thistle;
+    padding: 13px;
+    min-height: 500px;
+    border-radius: 0px 0px 23px 23px;
+    overflow: auto;
+}
+
+#preview img{
+    max-width: 100%;
+}
+
+#he-editor {
+    background:Salmon;
+    color:Snow;
+    border-radius:23px 0px 0px 0px; 
+    font-size:large; 
+    font-weight: bold;
+}
+
+#he-preview{
+    background:Plum;
+    color:Snow;
+    border-radius:0px 23px 0px 0px;
+    font-size:large;
+    font-weight: bold;
+}
+
+.container{
+    background: MistyRose;
+    border-radius:50px;
+    padding: 33px;
+}
+
+#margins .well{
+    background: MistyRose;
+    border:none;
+    box-shadow:none;
+}
+
+    </style>
+
+    <!-- REACT APP GOES HERE -->
+    <script type="text/babel" data-type="module" defer>
+"use strict";
+
+import React, {
+  StrictMode,
+  useState,
+} from "https://esm.sh/react?dev";
+import { createRoot } from "https://esm.sh/react-dom/client?dev";
+
+function App() {
+
+//As seen in Marked's documentation. Replaces \n with <br>
+marked.use({
+    breaks:true
+});
+
+//initial text. Tildes have been escaped.
+const welcome = `# Welcome to my React Markdown Previewer!
+## This is a sub-heading...
+### And here's some other cool stuff:
+Heres some code, \`<div></div>\`, between 2 backticks.
+\`\`\`
+// this is multi-line code:
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+    return multiLineCode;
+  }
+}
+\`\`\`
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://www.freecodecamp.org), and
+> Block Quotes!
+
+And if you want to get really crazy, even tables:
+
+Wild Header | Crazy Header | Another Header?
+------------ | ------------- | -------------
+Your content can | be here, and it | can be here....
+And here. | Okay. | I think we get it.
+
+- And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+
+1. And there are numbered lists too.
+1. Use just 1s if you want!
+1. And last but not least, let's not forget embedded images:
+
+![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
+`
+const [text, setText] = useState(welcome)
+
+function translate(event){
+    setText(event.target.value)
+}
+
+return (<>
+<div className="container well well-lg">
+    <div id="margins" className="row justify-content-xs-center">
+        <div className="well well-xs col-xs-6">
+            <div  className="text-center" id="he-editor"> Editor </div>
+            <textarea id="editor" className="center-block form-control" onChange={translate} defaultValue={text}></textarea>
+        </div>
+        <div className="well well-xs col-xs-6"> 
+            <div  className="text-center" id="he-preview"> Preview </div>
+            <div id="preview" className="center-block form-control" dangerouslySetInnerHTML={{ __html:  DOMPurify.sanitize(marked.parse(text))}}></div>
+        </div>
+    </div>
+</div>
+    </>)}
+
+
+createRoot(document.getElementById("root")).render(<App />);
+
+    </script> 
+
+    <title>mrk_dwn_prev</title>
+  </head>
+    <body style="background:LightSlateGrey;">
+        <div id="root"></div>
+    </body>
+</html>
