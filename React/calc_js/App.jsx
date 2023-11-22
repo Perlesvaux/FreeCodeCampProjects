@@ -13,23 +13,48 @@ import { createRoot } from "https://esm.sh/react-dom/client?dev";
 
 function App() {
 const [currentValue, setCurrentValue]= useState("")
+const [history, setHistory]= useState(false)
+// let HISTORY = false
 const display = useRef()
 
 function show(event){
    let entered =  event.target.textContent
-   let old = currentValue 
+
+   // let old = currentValue 
+
+    let old = currentValue
+   // if (old=="" && entered == "0") return
+   
+    if ( history==true && ( entered == "+" || entered == "-" || entered == "/" || entered == "x" ) )  {
+    // if ( HISTORY==true  )  {
+    //     HISTORY = false
+    //     old = currentValue
+        console.log(`Keep using history! ${history}`)
+        setHistory(false)
+    }
+
+    if (history==true && ( entered == "0" || entered == "1" || entered == "2" || entered == "3" || entered=="4" || entered =="5" || entered =="6" || entered=="7" || entered=="8" || entered=="9"|| entered=="." )){
+        console.log(`Wipe out! ${history}`)
+        old=""
+        // setCurrentValue("")
+        setHistory(false)
+
+    }
+
+    
+
+    
+
+
+ 
     
    if (old=="" && entered == "0") return
+   // if (old=="" && entered == "0") return
 
-   // console.log(old.slice(-2)) 
-   // console.log(old.length) 
    if (old.slice(-1)=="." && entered == ".") return
    const last = old.match(/[.\d]+/g)
-   // if (last) if (last.slice(-1).includes(".")) return 
    if (last) 
     {
-        // console.log(last.slice(-1)[0]) 
-        // console.log(last.slice(-1)[0].includes("."))
         if ( last.slice(-1)[0].includes(".") && entered == "." ) return
     }
 
@@ -71,32 +96,30 @@ function show(event){
 
    if (old.slice(-2)=="--" && entered == "-") return 
 
+
+   // if (old!="" && entered == "+" ||  old!="" && entered == "-"||   old!="" && entered == "/"||   old!="" && entered == "x") 
+
+
+   console.log(old) 
    let input = old+entered; 
-   // input = input.replace("--", "+") 
-   // console.log(input.slice(-1)) 
-   // const minus = input.match(/--\d+/g)
-   // if (minus)
-   // { for (let i of minus) input = input.replace(i, `(${i})`)  }
-   // { for (let i of minus) console.log( input.replace(i, `(${i})`) )  }
-
-
 
 
    setCurrentValue(input)
-    // console.log(display.current)
 }
 
+
 function equals(){
-    // console.log(eval(display.current.textContent))
-   // input = input.replace("--", "+") 
    const onScreenValue = currentValue.replace("x", "*").replace("--", "+")
+   // setCurrentValue(eval(onScreenValue).toString())
+   // console.log(eval(onScreenValue).toString())
+   // HISTORY = true
    setCurrentValue(eval(onScreenValue).toString())
-    console.log(eval(onScreenValue).toString())
-    
+   setHistory(true)
 }
 
 function AC(event){
    setCurrentValue("")
+   setHistory( false )
 }
 
 
@@ -124,8 +147,10 @@ return (<>
 <button onClick={show} id="decimal"    >.</button>
 <button onClick={AC} id="clear"    >AC </button>
 
-<div ref={display} id="display" className="well">{currentValue? currentValue: "0"}</div>
+<div ref={display} id="display" className="well">{currentValue? currentValue: "0"} </div>
     </>)}
 
+// <div ref={display} id="display" className="well">{currentValue? currentValue: "0"}</div>
+// <div className="well">{histVal? histVal: ""}</div>
 
 createRoot(document.getElementById("root")).render(<App />);
