@@ -33,12 +33,18 @@ function show(event){
         setHistory(false)
     }
 
-    if (history==true && ( entered == "0" || entered == "1" || entered == "2" || entered == "3" || entered=="4" || entered =="5" || entered =="6" || entered=="7" || entered=="8" || entered=="9"|| entered=="." )){
+    if (history==true && ( entered == "1" || entered == "2" || entered == "3" || entered=="4" || entered =="5" || entered =="6" || entered=="7" || entered=="8" || entered=="9"|| entered=="." )){
         console.log(`Wipe out! ${history}`)
         old=""
         // setCurrentValue("")
         setHistory(false)
 
+    }
+
+    if (history == true && entered=="0"){
+        setCurrentValue("")
+        setHistory(false)
+        return
     }
 
     
@@ -96,6 +102,11 @@ function show(event){
 
    if (old.slice(-2)=="--" && entered == "-") return 
 
+
+   if (old.slice(-1)=="-" && entered == "0") return
+   if (old.slice(-1)=="+" && entered == "0") return
+   if (old.slice(-1)=="x" && entered == "0") return
+   if (old.slice(-1)=="/" && entered == "0") return
 
    // if (old!="" && entered == "+" ||  old!="" && entered == "-"||   old!="" && entered == "/"||   old!="" && entered == "x") 
 
