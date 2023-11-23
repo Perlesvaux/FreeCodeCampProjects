@@ -4,3 +4,7 @@
     text-align: center;
     transition: 3s;
 }
+
+#main{
+   width:fit-content;
+}
