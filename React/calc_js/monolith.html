@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Bootstrap outdated-->
+    <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous"> -->
+    <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <!-- script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+    <!-- Bootstrap 5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- FreeCodeCamp Test CDN. Replace as needed -->
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js" defer></script>
+
+    <!-- STYLES GO HERE -->
+    <style>
+#root {
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    transition: 3s;
+}
+
+#main{
+  max-width:200px;
+
+}
+
+#display{
+    background:DimGrey;
+    color:SpringGreen;
+    font-weight:bold;
+    text-shadow:black 0.5px 0.5px;
+}
+
+    </style>
+
+    <!-- REACT APP GOES HERE -->
+    <script type="text/babel" data-type="module" defer>
+"use strict";
+
+import React, {
+  StrictMode,
+  useState,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,  
+} from "https://esm.sh/react?dev";
+import { createRoot } from "https://esm.sh/react-dom/client?dev";
+
+
+function App() {
+const [currentValue, setCurrentValue]= useState("")
+const [history, setHistory]= useState(false)
+const reference =  [
+useRef(),useRef(),useRef(),useRef(),useRef(),
+useRef(),useRef(),useRef(),useRef(),useRef(),
+useRef(),useRef(),useRef(),useRef(),useRef(),
+useRef(),useRef()
+]
+
+useEffect(()=>{
+
+    document.addEventListener("keydown",(e)=>{
+        let pressed = e.key
+        if (e.key == "Backspace" || e.key == "Delete") pressed = "AC"
+        if (e.key == "*") pressed = "x"
+        if (e.key == "Enter") pressed = "="
+
+        for (let x of reference){
+            if (pressed == x.current.textContent) x.current.click()
+        }
+    });
+
+
+
+
+}, [])
+
+
+function show(event){
+    let entered =  event.target.textContent
+    let old = currentValue
+
+    //Was there a previous operation? Follow-up with a sign to keep doing math
+    if ( history==true && ( entered == "+" || entered == "-" || entered == "/" || entered == "x" ) )  {
+        console.log(`Keep using history! ${history}`)
+        setHistory(false)
+    }
+
+    //Was there a previous operation? Follow-up with a number to start all over again
+    if (history==true && ( entered == "1" || entered == "2" || entered == "3" || entered=="4" || entered =="5" || entered =="6" || entered=="7" || entered=="8" || entered=="9"|| entered=="." )){
+        console.log(`Wipe out! ${history}`)
+        old=""
+        setHistory(false)
+    }
+
+    //Was there a previous operation? Follow-up with 0 to clear the screen.
+    if (history == true && entered=="0"){
+        setCurrentValue("")
+        setHistory(false)
+        return
+    }
+
+
+    //No zeroes allowed as first input!
+    if (old=="" && entered == "0") return
+
+    //Numbers only have a single decimal point!
+    if (old.slice(-1)=="." && entered == ".") return
+    const last = old.match(/[.\d]+/g)
+    if (last) 
+    {
+        if ( last.slice(-1)[0].includes(".") && entered == "." ) return
+    }
+
+
+    //Perform an action depending on the last character on-screen & user-input.
+    //if same sign is entered twice in a row, second iteration is ignored
+    //if "." is entered, input defaults to "0."
+    //if two different signs are entered in a row, latest replaces oldest
+    //if last two characters are a sign and a "-", those are replaced by user-input
+
+    if (old.slice(-1)=="/" && entered == "/") return
+    if (old.slice(-1)=="/" && entered == ".") entered = "0."
+    if (old.slice(-1)=="/" && entered == "+") old = old.slice(0,-1)
+    if (old.slice(-1)=="/" && entered == "x") old = old.slice(0,-1)
+
+    if (old.slice(-2)=="/-" && entered == "-" ) return 
+    if (old.slice(-2)=="/-" && entered == "/" ) old=old.slice(0,-2) 
+    if (old.slice(-2)=="/-" && entered == "+" ) old=old.slice(0,-2); 
+    if (old.slice(-2)=="/-" && entered == "x" ) old=old.slice(0,-2); 
+
+    if (old.slice(-1)=="+" && entered == "+") return
+    if (old.slice(-1)=="+" && entered == ".") entered = "0."
+    if (old.slice(-1)=="+" && entered == "/") old = old.slice(0,-1)
+    if (old.slice(-1)=="+" && entered == "x") old = old.slice(0,-1)
+
+    if (old.slice(-2)=="+-" && entered == "-") return 
+    if (old.slice(-2)=="+-" && entered == "/" ) old=old.slice(0,-2) 
+    if (old.slice(-2)=="+-" && entered == "+" ) old=old.slice(0,-2); 
+    if (old.slice(-2)=="+-" && entered == "x" ) old=old.slice(0,-2); 
+
+    if (old.slice(-1)=="x" && entered == "x") return
+    if (old.slice(-1)=="x" && entered == ".") entered = "0."
+    if (old.slice(-1)=="x" && entered == "/") old = old.slice(0,-1)
+    if (old.slice(-1)=="x" && entered == "+") old = old.slice(0,-1)
+
+    if (old.slice(-2)=="x-" && entered == "-") return 
+    if (old.slice(-2)=="x-" && entered == "/" ) old=old.slice(0,-2) 
+    if (old.slice(-2)=="x-" && entered == "+" ) old=old.slice(0,-2); 
+    if (old.slice(-2)=="x-" && entered == "x" ) old=old.slice(0,-2); 
+
+    if (old.slice(-2)=="--" && entered == "-") return 
+    if (old.slice(-1)=="-" && entered == ".") entered = "0."
+    if (old.slice(-1)=="-" && entered == "x") old = old.slice(0,-1)
+    if (old.slice(-1)=="-" && entered == "/") old = old.slice(0,-1)
+    if (old.slice(-1)=="-" && entered == "+") old = old.slice(0,-1)
+
+    //No zeroes allowed immediately after sign
+    if (old.slice(-1)=="-" && entered == "0") return
+    if (old.slice(-1)=="+" && entered == "0") return
+    if (old.slice(-1)=="x" && entered == "0") return
+    if (old.slice(-1)=="/" && entered == "0") return
+
+    let input = old+entered; 
+    setCurrentValue(input)
+}
+
+
+function equals(){
+   if ( currentValue == "" ) return
+   const onScreenValue = currentValue.replace("x", "*").replace("--", "+")
+   setCurrentValue(eval(onScreenValue).toString())
+   setHistory(true)
+}
+
+function AC(event){
+   setCurrentValue("")
+   setHistory( false )
+}
+
+
+return (<>
+<div id="main" className="container-fluid">
+
+
+    <div className="row"> 
+    <div id="display" className="card">{currentValue? currentValue: "0"} </div>
+    </div>
+    <div className="row">
+
+    <div className="col-md col-xs col-sm col-lg col-xl">
+
+    <div className="row"> 
+    <button ref={reference[0]} className="btn btn-success   col-md col-xs col-sm col-lg col-xl" id="equals" onClick={equals}>=</button>
+    </div>
+
+    <div className="row"> 
+    <button ref={reference[1]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="seven" >7</button>
+    <button ref={reference[2]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="eight" >8</button>
+    <button ref={reference[3]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="nine"  >9</button>
+    </div>
+
+    <div className="row"> 
+    <button ref={reference[4]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="four"  >4</button>
+    <button ref={reference[5]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="five"  >5</button>
+    <button ref={reference[6]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="six"   >6</button>
+    </div>
+
+    <div className="row"> 
+    <button ref={reference[7]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="one"   >1</button>
+    <button ref={reference[8]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="two"   >2</button>
+    <button ref={reference[9]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="three" >3</button>
+    </div>
+
+    <div className="row"> 
+    <button ref={reference[10]} className="btn btn-primary   col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" onClick={show} id="zero"  >0</button>
+    <button ref={reference[11]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="decimal"    >.</button>
+    </div>
+    </div>
+
+    <div className="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
+
+    <div className="row"> 
+    <button ref={reference[12]} className="btn btn-danger    col-md col-xs col-sm col-lg col-xl" onClick={AC} id="clear"    >AC</button>
+    </div>
+    <div className="row"> 
+    <button ref={reference[13]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="add"       >+</button>
+    </div>
+    <div className="row"> 
+    <button ref={reference[14]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="divide"    >/</button>
+    </div>
+    <div className="row"> 
+    <button ref={reference[15]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="multiply"  >x</button>
+    </div>
+    <div className="row"> 
+    <button ref={reference[16]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="subtract"  >-</button>
+    </div>
+    </div>
+</div>
+
+
+    </div>
+</>)}
+
+
+createRoot(document.getElementById("root")).render(<App />);
+
+    </script> 
+
+    <title>calc_js</title>
+  </head>
+    <body style="background:LightSlateGrey;">
+        <div id="root"></div>
+    </body>
+</html>

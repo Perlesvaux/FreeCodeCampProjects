@@ -50,15 +50,20 @@ function App() {
     const twitt = `https://twitter.com/intent/tweet?text=${urlParameters}`
      
 return (
-<div id="quote-box" className="container well" style={{backgroundColor:text.color, transition:"5s", borderColor:text.color, borderRadius:"30px", maxWidth:"360px", minWidth:"300", maxHeight:"500px" }}>
-    <div className="well well-lg" style={{borderRadius:"15px",maxHeight:"300px", minHeight:"250px"}}> 
-    <div id="text"  className="well" style={{backgroundColor:"antiqueWhite"}}>  <i className="bi bi-quote"></i>{text.quote}</div>
+<div id="quote-box" className="container card" style={{backgroundColor:text.color, transition:"5s", borderColor:text.color, borderRadius:"20px", maxWidth:"360px", minWidth:"300", maxHeight:"500px", minHeight:"450px" }}>
+<br/>
+    <div className="card" style={{borderRadius:"20px 20px 15px 15px",maxHeight:"300px", minHeight:"250px"}}> 
+    <div id="text"  className="card-body" style={{backgroundColor:"antiqueWhite", borderRadius:"20px 20px 0px 0px" }}>  <i className="bi bi-quote"></i>{text.quote}</div>
     <div id="author" className="text-right text-primary"> — {text.author} <i className="bi bi-pen-fill"></i> </div>
     </div>
 
     <div style={{maxHeight:"100px", minHeight:"100px"}}>
-    <button id="new-quote" className="btn btn-primary btn-hero btn-block" onClick={fetchQuote}><i className="bi bi-shuffle"></i>   </button>
-    <a href={twitt} id="tweet-quote" className="btn btn-info btn-block"  target="_top"><i className="bi bi-twitter"></i></a>
+<br/>
+<br/>
+    <div class="d-grid gap-2"> 
+        <button id="new-quote" className="btn btn-primary" onClick={fetchQuote}><i className="bi bi-shuffle"></i>   </button>
+        <a href={twitt} id="tweet-quote" className="btn btn-info"  target="_top"><i className="bi bi-twitter"></i></a>
+    </div>
     </div>
 </div>
 )}
