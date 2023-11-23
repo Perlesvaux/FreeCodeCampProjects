@@ -14,26 +14,6 @@ import { createRoot } from "https://esm.sh/react-dom/client?dev";
 function App() {
 const [currentValue, setCurrentValue]= useState("")
 const [history, setHistory]= useState(false)
-// const b1 = useRef()
-// const b2 = useRef()
-// const b3 = useRef()
-// const b4 = useRef()
-// const b5 = useRef()
-// const b6 = useRef()
-// const b7 = useRef()
-// const b8 = useRef()
-// const b9 = useRef()
-// const b0 = useRef()
-
-// const bs = useRef()
-// const bm = useRef()
-// const bd = useRef()
-// const br = useRef()
-// const bp = useRef()
-
-// const bc = useRef()
-// const be = useRef()
-
 const reference =  [
 useRef(),useRef(),useRef(),useRef(),useRef(),
 useRef(),useRef(),useRef(),useRef(),useRef(),
