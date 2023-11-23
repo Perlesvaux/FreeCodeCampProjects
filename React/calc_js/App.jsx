@@ -14,6 +14,51 @@ import { createRoot } from "https://esm.sh/react-dom/client?dev";
 function App() {
 const [currentValue, setCurrentValue]= useState("")
 const [history, setHistory]= useState(false)
+// const b1 = useRef()
+// const b2 = useRef()
+// const b3 = useRef()
+// const b4 = useRef()
+// const b5 = useRef()
+// const b6 = useRef()
+// const b7 = useRef()
+// const b8 = useRef()
+// const b9 = useRef()
+// const b0 = useRef()
+
+// const bs = useRef()
+// const bm = useRef()
+// const bd = useRef()
+// const br = useRef()
+// const bp = useRef()
+
+// const bc = useRef()
+// const be = useRef()
+
+const reference =  [
+useRef(),useRef(),useRef(),useRef(),useRef(),
+useRef(),useRef(),useRef(),useRef(),useRef(),
+useRef(),useRef(),useRef(),useRef(),useRef(),
+useRef(),useRef()
+]
+
+useEffect(()=>{
+
+    document.addEventListener("keydown",(e)=>{
+        let pressed = e.key
+        if (e.key == "Backspace" || e.key == "Delete") pressed = "AC"
+        if (e.key == "*") pressed = "x"
+        if (e.key == "Enter") pressed = "="
+
+        for (let x of reference){
+            if (pressed == x.current.textContent) x.current.click()
+        }
+    });
+
+
+
+
+}, [])
+
 
 function show(event){
     let entered =  event.target.textContent
@@ -106,6 +151,7 @@ function show(event){
 
 
 function equals(){
+   if ( currentValue == "" ) return
    const onScreenValue = currentValue.replace("x", "*").replace("--", "+")
    setCurrentValue(eval(onScreenValue).toString())
    setHistory(true)
@@ -129,49 +175,49 @@ return (<>
     <div className="col-md col-xs col-sm col-lg col-xl">
 
     <div className="row"> 
-    <button className="btn btn-success   col-md col-xs col-sm col-lg col-xl" id="equals" onClick={equals}>=</button>
+    <button ref={reference[0]} className="btn btn-success   col-md col-xs col-sm col-lg col-xl" id="equals" onClick={equals}>=</button>
     </div>
 
     <div className="row"> 
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="seven" >7</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="eight" >8</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="nine"  >9</button>
+    <button ref={reference[1]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="seven" >7</button>
+    <button ref={reference[2]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="eight" >8</button>
+    <button ref={reference[3]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="nine"  >9</button>
     </div>
 
     <div className="row"> 
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="four"  >4</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="five"  >5</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="six"   >6</button>
+    <button ref={reference[4]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="four"  >4</button>
+    <button ref={reference[5]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="five"  >5</button>
+    <button ref={reference[6]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="six"   >6</button>
     </div>
 
     <div className="row"> 
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="one"   >1</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="two"   >2</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="three" >3</button>
+    <button ref={reference[7]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="one"   >1</button>
+    <button ref={reference[8]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="two"   >2</button>
+    <button ref={reference[9]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="three" >3</button>
     </div>
 
     <div className="row"> 
-    <button className="btn btn-primary   col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" onClick={show} id="zero"  >0</button>
-    <button className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="decimal"    >.</button>
+    <button ref={reference[10]} className="btn btn-primary   col-md-6 col-xs-6 col-sm-6 col-lg-6 col-xl-6" onClick={show} id="zero"  >0</button>
+    <button ref={reference[11]} className="btn btn-primary   col-md col-xs col-sm col-lg col-xl" onClick={show} id="decimal"    >.</button>
     </div>
     </div>
 
     <div className="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-xl-4">
 
     <div className="row"> 
-    <button className="btn btn-danger    col-md col-xs col-sm col-lg col-xl" onClick={AC} id="clear"    >AC </button>
+    <button ref={reference[12]} className="btn btn-danger    col-md col-xs col-sm col-lg col-xl" onClick={AC} id="clear"    >AC</button>
     </div>
     <div className="row"> 
-    <button className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="add"       >+</button>
+    <button ref={reference[13]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="add"       >+</button>
     </div>
     <div className="row"> 
-    <button className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="divide"    >/</button>
+    <button ref={reference[14]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="divide"    >/</button>
     </div>
     <div className="row"> 
-    <button className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="multiply"  >x</button>
+    <button ref={reference[15]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="multiply"  >x</button>
     </div>
     <div className="row"> 
-    <button className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="subtract"  >-</button>
+    <button ref={reference[16]} className="btn btn-secondary col-md col-xs col-sm col-lg col-xl" onClick={show} id="subtract"  >-</button>
     </div>
     </div>
 </div>
