@@ -6,5 +6,13 @@
 }
 
 #main{
-   width:fit-content;
+  max-width:200px;
+
+}
+
+#display{
+    background:DimGrey;
+    color:SpringGreen;
+    font-weight:bold;
+    text-shadow:black 0.5px 0.5px;
 }
