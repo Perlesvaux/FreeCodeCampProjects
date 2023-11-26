@@ -50,51 +50,45 @@ function downwards(p){
     p.setter(p.count - 1)
 }
 
-// function delay(t){
-//     const min = 60000
+function timer_down(t){
+    // Initialize a Date object at 00:00 AM
+    const startDate = new Date();
+    startDate.setHours(0, t.breakTime, 0, 0);
 
-//     // const d = new Date()
-//     // // const now = {min:d.getMinutes(), sec:d.getSeconds()}
-    
-//     // const break_delay   = new Date( d.getTime() + min*t.breakTime )
-//     // const session_delay = new Date( d.getTime() + min*t.sessionTime )
-
-//     // const b = break_delay.getTime() - d.getTime()
-//     // const s = session_delay.getTime() - d.getTime()
-//     const m = moment()
-//     const a = m.format('mm:ss')
-//     const b = m.add(5, 'minutes').format('mm:ss') //change integer by break/session delay
-
-//     console.log(a)
-//     console.log(b)
-
-//     return {break:t.breakTime*60000, session:t.sessionTime*60000}
-
-//     // {min:break_delay.getMinutes(), sec:break_delay.getSeconds()}
-//     // {min:session_delay.getMinutes(), sec:session_delay.getSeconds()} 
-
-
-// }
-
-function play_pause(t){
-
-    const m = moment()
-    const _break   = m.add(t.breakTime, 'minutes').format('mm:ss') //change integer by break/session delay
-    const _session = m.add(t.sessionTime, 'minutes').format('mm:ss') //change integer by break/session delay
-    console.log(_break + " vs " + _session)
-    
-
-    function myTimer() {
-        const m = moment().format('mm:ss')
-        console.log(m);
-        if (_break==m) {
-            console.log("heyyyy!")
-            clearInterval(myvar)
-        }
+    function countdown() {
+        const time = {mins:startDate.getMinutes().toString().padStart(2,'0'), secs:startDate.getSeconds().toString().padStart(2,'0')}
+        startDate.setSeconds(startDate.getSeconds() - 1);
+        // console.log(startDate);//normal countdown. full date displayed
+        const output = `${time.mins}:${time.secs}`
+        console.log(output)
+        if (output == "00:00"){ console.log("yeahh!!!"); clearInterval(tmr) }
 
     }
 
-    let myvar = setInterval(myTimer, 1000);
+    // Use setInterval to call the countdown function every 1000 milliseconds (1 second)
+    const tmr = setInterval(countdown, 1000);
+
+}
+
+
+
+function play_pause(t){
+
+    timer_down(t)
+
+    // const m = moment()
+    // const _break   = m.add(t.breakTime, 'minutes').format('mm:ss') //change integer by break/session delay
+
+    // function myTimer(mom, goal) {
+    //     console.log(mom.subtract(1, 'seconds').format('mm:ss'));
+    //     if (goal==mom.format('mm:ss')) {
+    //         console.log("heyyyy!")
+    //         clearInterval(myvar)
+    //     }
+
+    // }
+
+    // let myvar = setInterval(myTimer, 1000, m, _break);
 
     if ( !t.isPlaying ) {
         t.setPlayButton("bi bi-stop-circle") 
