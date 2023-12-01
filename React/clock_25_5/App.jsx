@@ -29,8 +29,7 @@ function Timer({t}){
     return (<>
         <div id="timer-label">{t.timerLabel}</div>
         <div id="time-left">{t.displayTime}</div>
-        <button ref={t.timeleft} id="testingout">testing</button>
-        <button id="start_stop"  onClick={()=>t.play_pause(t)}><i className={ t.playButton }></i></button>
+        <button ref={t.timeleft} id="start_stop"  ><i className={ t.playButton }></i></button>
         <button id="reset" ><i className="bi bi-arrow-clockwise"></i></button>
         <audio ref={t.alarm} src="https://upload.wikimedia.org/wikipedia/commons/4/42/Beep_alarm_clock.ogg" id="beep"></audio>
         </>)
@@ -43,41 +42,47 @@ function App() {
 
     let referencetest= useRef({
         session_countdown:null,
-        break_countdown:null
+        break_countdown:null,
+        session_delay:null, 
+        break_delay:null 
     })
 
 // +1 to counter
 function upwards(p){
+    if ( isPlaying ) return
     if (p.count == 60) return
     p.setter(p.count + 1)
-    p.setDisplay(`${ p.count +1 }:00`)
+    if (p.label=="session-label") 
+    {
+        p.setDisplay(`${ p.count +1 }:00`)
+        startDate.setHours(0,p.count+1, 0,0)
+    }
 
-
-    let today = new Date()
-    startDate.setHours(0,p.count+1, 0,0)
-    // setStartDate(today)
-
-    console.log(startDate)
 }
 
 // -1 to counter 
 function downwards(p){
+    if ( isPlaying ) return
     if (p.count ==1) return
     p.setter(p.count - 1)
-    p.setDisplay(`${ p.count -1 }:00`)
+    if (p.label=="session-label") 
+    {
+        p.setDisplay(`${ p.count -1 }:00`)
+        startDate.setHours(0,p.count-1, 0,0)
+    }
 }
 
-function play_pause(t){
-    console.log(t.isPlaying)
+function play_pause(){
+    console.log(isPlaying)
 
-    if ( !t.isPlaying ) {
-        t.setPlayButton("bi bi-stop-circle") 
-        t.setIsPlaying(true)
+    if ( !isPlaying ) {
+        setPlayButton("bi bi-stop-circle") 
+        setIsPlaying(true)
     }
 
-    if ( t.isPlaying ) {
-        t.setPlayButton("bi bi-play-fill") 
-        t.setIsPlaying(false)
+    if ( isPlaying ) {
+        setPlayButton("bi bi-play-fill") 
+        setIsPlaying(false)
 
     }
 }
@@ -102,7 +107,7 @@ let session_countdown;
 let break_countdown;
 const tim={isPlaying:isPlaying, setIsPlaying:setIsPlaying, label:"Session", playButton:playButton, setPlayButton:setPlayButton, timerLabel:timerLabel, setTimerLabel:setTimerLabel, play_pause:play_pause, sessionTime:sessionTime, breakTime:breakTime, setDisplay:setDisplay, displayTime:displayTime, alarm:alarm, break_countdown:break_countdown, session_countdown:session_countdown, timeleft:timeleft}
 
-let onoff = false;
+// let onoff = false;
 let output;
 function today(){
     const today = new Date();
@@ -115,18 +120,27 @@ useEffect(()=>{
 
     // let session_countdown;
     // let break_countdown;
-    let { session_countdown, break_countdown } = referencetest.current
+    let { session_countdown, break_countdown, session_delay, break_delay } = referencetest.current
+    
+    function delayClick(){
+        timeleft.current.click()
+        clearTimeout(session_delay)
+        session_delay=null
+        clearTimeout(break_delay)
+        break_delay=null
+    }
 
 
     function playpause(){
-    onoff=!onoff;
-    console.log(onoff)
+            play_pause()
+    // onoff=!onoff;
+    // console.log(onoff)
 
     function timer_session(){
         setTimerLabel("Session")
 
         function countDownSession() {
-            if (!onoff) { console.log("Session Stopped!!"); clearing(); }
+            // if (!onoff) { console.log("Session Stopped!!"); clearing(); }
 
             startDate.setSeconds(startDate.getSeconds() - 1);
             output = `${startDate.getMinutes().toString().padStart(2,'0')}:${startDate.getSeconds().toString().padStart(2,'0')}`
@@ -138,6 +152,7 @@ useEffect(()=>{
                if (!break_countdown) {
                    startDate.setHours(0,breakTime,0,0)
                    timer_break();
+                   session_delay = setTimeout(delayClick, 1000)
                };
             }; 
         };
@@ -153,7 +168,7 @@ useEffect(()=>{
         setTimerLabel("Break")
 
         function countDownBreak() {
-            if (!onoff) { console.log("Break Stopped!!"); clearing(); }
+            // if (!onoff) { console.log("Break Stopped!!"); clearing(); }
 
             startDate.setSeconds(startDate.getSeconds() - 1);
             output = `${startDate.getMinutes().toString().padStart(2,'0')}:${startDate.getSeconds().toString().padStart(2,'0')}`
@@ -164,6 +179,7 @@ useEffect(()=>{
                 if (!session_countdown) { 
                     startDate.setHours(0,sessionTime,0,0)
                     timer_session();
+                   break_delay = setTimeout(delayClick, 1000)
                 }                
             }; 
         };
@@ -180,15 +196,18 @@ useEffect(()=>{
     if (timerLabel == "Session"){
         console.log("is now on session")
         if(!session_countdown) {timer_session()} 
-        if(!onoff) {clearing()}
+        // if(!onoff) {clearing()}
+        else {clearing()}
     }
 
 
     if (timerLabel == "Break"){
         console.log("is now on break")
         if(!break_countdown) {timer_break()} 
-        if(!onoff) {clearing()}
+        // if(!onoff) {clearing()}
+        else {clearing()}
     }
+
 
 
     } 
@@ -201,6 +220,7 @@ useEffect(()=>{
         clearInterval(break_countdown)
         break_countdown=null
         console.log("Stop!")
+
         // timeleft.current.removeEventListener("click", playpause)
     }
 
@@ -208,11 +228,17 @@ useEffect(()=>{
 
 
     timeleft.current.addEventListener("click", playpause)
+    // if (output=="00:00") 
 
     return ()=>{
 
+        // if(timerLabel=="Session"){
+        //     clearInterval(session_countdown)
+        //     session_countdown=null
+        //     console.log('works!')
+        // }
         clearing()
-        timeleft.current.click()
+        // timeleft.current.click()
         timeleft.current.removeEventListener("click", playpause)
             // console.log(session_countdown)
         // if(timerLabel=="Session"){
@@ -227,7 +253,7 @@ useEffect(()=>{
 
 
 
-}, [startDate, timerLabel, onoff])
+}, [startDate, timerLabel])
 
 
 return (<>
