@@ -41,6 +41,11 @@ function Timer({t}){
 
 function App() {
 
+    let referencetest= useRef({
+        session_countdown:null,
+        break_countdown:null
+    })
+
 // +1 to counter
 function upwards(p){
     if (p.count == 60) return
@@ -108,10 +113,12 @@ const [startDate, setStartDate]= useState( today() );
 // const [stored, setStored]= useState( new Date() );
 useEffect(()=>{
 
-    let session_countdown;
-    let break_countdown;
+    // let session_countdown;
+    // let break_countdown;
+    let { session_countdown, break_countdown } = referencetest.current
 
-    timeleft.current.addEventListener("click", ()=>{
+
+    function playpause(){
     onoff=!onoff;
     console.log(onoff)
 
@@ -168,30 +175,9 @@ useEffect(()=>{
 
 
 
-    function clearing (){
-        clearInterval(session_countdown)
-        session_countdown=null
-        clearInterval(break_countdown)
-        break_countdown=null
-        console.log("Stop!")
-    }
-
-
-    // if (timerLabel == "Session"){
-    //     console.log("is now on session")
-    //     timer_session()
-    // }
-
-
-    // if (timerLabel == "Break"){
-    //     console.log("is now on break")
-    //     timer_break()
-    // }
-
 
 
     if (timerLabel == "Session"){
-        clearing()
         console.log("is now on session")
         if(!session_countdown) {timer_session()} 
         if(!onoff) {clearing()}
@@ -199,31 +185,45 @@ useEffect(()=>{
 
 
     if (timerLabel == "Break"){
-        clearing()
         console.log("is now on break")
         if(!break_countdown) {timer_break()} 
         if(!onoff) {clearing()}
     }
-        //
-        //
-        //
-
-    // if (timerLabel == "Session" && !session_countdown){timer_session()}
-
-    // if (timerLabel == "Break" && break_countdown){clearing_break()}
-    // if (timerLabel == "Break" && !break_countdown){timer_break()} 
-
-    // if (timerLabel == "Session" && !session_countdown){ timer_session() } else {clearing_session()}
-    // if (timerLabel == "Break" && !break_countdown){ timer_break() } else {clearing_break()}
-
-    // if (!session_countdown) { timer_session() } else {clearing_session()}
-
-    // if (!session_countdown && break_countdown) { clearing_break()}
 
 
-    })
+    } 
 
 
+
+    function clearing (){
+        clearInterval(session_countdown)
+        session_countdown=null
+        clearInterval(break_countdown)
+        break_countdown=null
+        console.log("Stop!")
+        // timeleft.current.removeEventListener("click", playpause)
+    }
+
+
+
+
+    timeleft.current.addEventListener("click", playpause)
+
+    return ()=>{
+
+        clearing()
+        timeleft.current.click()
+        timeleft.current.removeEventListener("click", playpause)
+            // console.log(session_countdown)
+        // if(timerLabel=="Session"){
+            // clearInterval(session_countdown)
+            // session_countdown=null
+        // }
+        // if(timerLabel=="Break"){
+            // clearInterval(break_countdown)
+            // break_countdown=null
+        // }
+    }
 
 
 
