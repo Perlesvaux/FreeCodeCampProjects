@@ -19,56 +19,58 @@ function App(){
         currentSegment: 'Session',
         break_date: new Date('2023-11-26T00:05:00'),
         session_date: new Date('2023-11-26T00:25:00'),
-        alarm: useRef(),
         displayTime:"25:00",
     })
 
     let sessionInt = null
 
-
+    const  alarm = useRef()
 
 
     function upwards_break(){
         if (status.break == 60) return
-        status.break_date.setHours(0,status.break+1,0,0)
-        const currentState = {  ...status , break:status.break+1  }
+        const auxdate = new Date( status.break_date.setHours(0,status.break+1,0,0) )
+        const currentState = {  ...status , break:status.break+1, break_date:auxdate }
         setStatus(currentState)
         console.log(status.break_date)
     }
 
     function downwards_break(){
         if (status.break == 1) return
-        status.break_date.setHours(0,status.break-1,0,0)
-        const currentState =  { ...status , break:status.break-1  }
+        const auxdate = new Date( status.break_date.setHours(0,status.break-1,0,0) )
+        const currentState =  { ...status , break:status.break-1, break_date:auxdate }
         setStatus(currentState)
         console.log(status.break_date)
     }
 
     function upwards_session(){
         if (status.session == 60) return
-        status.session_date.setHours(0,status.session+1,0,0)
-        const currentState = {  ...status , session:status.session+1,  displayTime:`${status.session_date.toUTCString().slice(20,25)}`}
+        const auxdate = new Date( status.session_date.setHours(0,status.session+1,0,0) )
+        const currentState = {  ...status , session:status.session+1, session_date:auxdate, displayTime:`${auxdate.toUTCString().slice(20,25)}`}
         setStatus(currentState)
         console.log(status.session_date)
     }
 
     function downwards_session(){
         if (status.session == 1) return
-        status.session_date.setHours(0,status.session-1,0,0)
-        const currentState = {  ...status , session:status.session-1,  displayTime:`${status.session_date.toUTCString().slice(20,25)}`}
+        const auxdate = new Date( status.session_date.setHours(0,status.session-1,0,0) )
+        const currentState = {  ...status , session:status.session-1, session_date:auxdate,  displayTime:`${auxdate.toUTCString().slice(20,25)}`}
         setStatus(currentState)
         console.log(status.session_date)
     }
 
     function reset_button(){
-        const currentState = {...status, 
-        break:5,
-        session:25,
-        currentSegment: 'Session',
-        break_date: new Date('2023-11-26T00:05:00'),
-        session_date: new Date('2023-11-26T00:25:00'),
-        displayTime:"25:00",
+        const currentState = {
+            break:5,
+            session:25,
+            currentSegment: 'Session',
+            break_date: new Date('2023-11-26T00:05:00'),
+            session_date: new Date('2023-11-26T00:25:00'),
+            displayTime:"25:00",
         }
+
+        clearInterval(sessionInt)
+        sessionInt=null
 
         setStatus(currentState)
         console.log(status)
@@ -87,7 +89,7 @@ function App(){
 
 
         setStatus(newstate)
-        if (newstate.displayTime == "00:00"){status.alarm.current.play();clearInterval(sessionInt);sessionInt=null }
+        if (newstate.displayTime == "00:00"){alarm.current.play();clearInterval(sessionInt);sessionInt=null }
     }
 
     function pause(){
@@ -130,7 +132,7 @@ function App(){
     <div id="time-left">{status.displayTime}</div>
     <button id="start_stop"  onClick={f.current.p}><i className="bi bi-play-fill"></i></button>
     <button id="reset" onClick={reset_button} ><i className="bi bi-arrow-clockwise"></i></button>
-    <audio ref={status.alarm} src="https://upload.wikimedia.org/wikipedia/commons/4/42/Beep_alarm_clock.ogg" id="beep"></audio>
+    <audio ref={alarm} src="https://upload.wikimedia.org/wikipedia/commons/4/42/Beep_alarm_clock.ogg" id="beep"></audio>
         </>)
 }
 
