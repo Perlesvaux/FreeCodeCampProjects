@@ -101,11 +101,9 @@ function App(){
          if (!sessionInt)
          {
              sessionInt=setInterval(session_countdown, 1000)
+         } else {
+             pause()
          }
-         // if (sessionInt){
-         //     pause()
-            
-         // }
      }
     
     const f = useRef({
