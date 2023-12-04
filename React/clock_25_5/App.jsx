@@ -143,43 +143,47 @@ function Timer({ props }) {
    }
 
    useEffect(() => {
-      if (!state.timerIsRunning) return
+      let timeout=null;
+      if (state.timerIsRunning) 
 
-      const timeout = setTimeout(() => {
-         // IF THE TIMER IS '00:00' FROM THE PREVIOUS RENDER, COPY THE PREVIOUS STATE BUT 
-        // CHANGE THE CURRENT SEGMENT AND THE TIMER TO REFLECT THE NEW RUNNING SEGMENT, AND AFTER THAT, SET THE COPY AS THE NEW STATE, AND RETURN:
-         let currentTimer = `${state.timer.getMinutes().toString().padStart(2,'0')}:${state.timer.getSeconds().toString().padStart(2,'0')}`
-          
-          if (currentTimer === "00:00") {
 
-             let tempState = {
-                 ...state, 
-                 currentSegment: (state.currentSegment==="session")? "break":"session",
-                 timer: (state.currentSegment==="session")? new Date(state.breakTime) : new Date( state.sessionTime ),
-             }
-              // tempState.currentSegment= 'break'
-              setState(tempState)
-              return
-          }
+       {
+           timeout = setInterval(() => {
+               // IF THE TIMER IS '00:00' FROM THE PREVIOUS RENDER, COPY THE PREVIOUS STATE BUT 
+               // CHANGE THE CURRENT SEGMENT AND THE TIMER TO REFLECT THE NEW RUNNING SEGMENT, AND AFTER THAT, SET THE COPY AS THE NEW STATE, AND RETURN:
+               let currentTimer = `${state.timer.getMinutes().toString().padStart(2,'0')}:${state.timer.getSeconds().toString().padStart(2,'0')}`
 
-         // (THIS IS OUTSIDE OF THE ABOVE IF-BLOCK) COPY STATE BUT GIVE THE timer A NEW DATE OBJECT BASED ON THE PREVIOUS timer, AND THEN SET THE TIMER TO 1 SECOND LESS:
-         const tempState = {...state}
-         const nextDate = new Date(tempState.timer)
-         nextDate.setSeconds(nextDate.getSeconds() - 1);
-         tempState.timer = nextDate
-         currentTimer = `${tempState.timer.getMinutes().toString().padStart(2,'0')}:${tempState.timer.getSeconds().toString().padStart(2,'0')}`
+               if (currentTimer === "00:00") {
 
-         // AFTER SUBTRACTING THAT 1 SECOND, IF THE NEW timer HAS REACHED '00:00' TRIGGER THE ALARM:
-         if (currentTimer == '00:00') alarmRef.current.play()  
+                   let tempState = {
+                       ...state, 
+                       currentSegment: (state.currentSegment==="session")? "break":"session",
+                       timer: (state.currentSegment==="session")? new Date(state.breakTime) : new Date( state.sessionTime ),
+                   }
+                   // tempState.currentSegment= 'break'
+                   setState(tempState)
+                   return
+               }
 
-         // SET THE COPY AS THE NEW STATE:
-         setState(tempState)
+               // (THIS IS OUTSIDE OF THE ABOVE IF-BLOCK) COPY STATE BUT GIVE THE timer A NEW DATE OBJECT BASED ON THE PREVIOUS timer, AND THEN SET THE TIMER TO 1 SECOND LESS:
+               const tempState = {...state}
+               const nextDate = new Date(tempState.timer)
+               nextDate.setSeconds(nextDate.getSeconds() - 1);
+               tempState.timer = nextDate
+               currentTimer = `${tempState.timer.getMinutes().toString().padStart(2,'0')}:${tempState.timer.getSeconds().toString().padStart(2,'0')}`
 
-      }, 1000)
-      // RETURN A FUNCTION TO CLEAR THE TIMER:
+               // AFTER SUBTRACTING THAT 1 SECOND, IF THE NEW timer HAS REACHED '00:00' TRIGGER THE ALARM:
+               if (currentTimer == '00:00') alarmRef.current.play()  
+
+               // SET THE COPY AS THE NEW STATE:
+               setState(tempState)
+
+           }, 1000)
+           // RETURN A FUNCTION TO CLEAR THE TIMER:
+       }
 
        return ()=>{
-           clearTimeout(timeout)
+           clearInterval(timeout)
        }
 
    })
