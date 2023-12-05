@@ -90,10 +90,10 @@ function Buttons({ props }) {
    return (
       <>
          <div id={`${segment}-label`}>{segment} Length</div>
-         <button type='button' id={`${segment}-increment`} onClick={upwards}>
+         <button type='button' id={`${segment}-increment`} onClick={upwards} className="btn btn-primary">
             <i className="bi bi-caret-up"></i>
          </button>
-         <button type='button' id={`${segment}-decrement`} onClick={downwards}>
+         <button type='button' id={`${segment}-decrement`} onClick={downwards} className="btn btn-secondary">
             <i className="bi bi-caret-down-fill"></i>
          </button>
          <div id={`${segment}-length`}>{mins}</div>
@@ -111,7 +111,6 @@ function Timer({ props }) {
       ? '60:00'
       : state.timer.toTimeString().slice(3, 8)
 
-   const [playButton, setPlayButton] = useState("bi bi-play-fill")
 
    const play_pause = () => {
       minIs60Ref.current = false
@@ -192,10 +191,10 @@ function Timer({ props }) {
       <>
          <div id="timer-label">{state.currentSegment}</div>
          <div id="time-left">{time}</div>
-         <button id="start_stop" onClick={play_pause}>
-            <i className={playButton}></i>
+         <button id="start_stop" onClick={play_pause} className={state.timerIsRunning ? "btn btn-danger":"btn btn-success"}>
+            <i className={state.timerIsRunning ? "bi bi-stop-fill":"bi bi-play-fill"}></i>
          </button>
-         <button id="reset" onClick={reset}>
+         <button id="reset" onClick={reset} className={state.timerIsRunning ? "btn btn-dark":"btn btn-secondary"}>
             <i className="bi bi-arrow-clockwise"></i>
          </button>
          <audio
@@ -220,9 +219,18 @@ function App() {
 
    return (
       <>
+       <div className="card" style={{width:"200px", display:"block", margin:"auto"}}> 
+
+
+       <div className="card-body">
+
          <Buttons props={{ state, setState, minIs60Ref, segment: 'break' }} />
          <Buttons props={{ state, setState, minIs60Ref, segment: 'session' }} />
          <Timer props={{ state, setState, minIs60Ref }} />
+
+       </div>
+
+       </div>
       </>
    )
 }
