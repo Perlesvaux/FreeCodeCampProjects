@@ -1,9 +1,14 @@
+<html>
+<head>
 <style>
 body{
     background-color: #727487;
 }
 
 </style>
+</head>
+
+<body>
 
 # FreeCodeCamp Projects!
 
@@ -29,3 +34,5 @@ body{
 - [25 + 5 Clock](React/clock_25_5/monolith.html)
 
 ## [Foundational C# with Microsoft](https://www.freecodecamp.org/certification/Perlesvaux/foundational-c-sharp-with-microsoft) 
+</body>
+</html>
