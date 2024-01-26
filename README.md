@@ -1,3 +1,11 @@
+<style>
+h2{
+    color:yellow;
+    border: 1px solid red;
+}
+
+</style>
+
 # FreeCodeCamp Projects!
 
 ## [JavaScript Algorithms and Data Structures](https://www.freecodecamp.org/certification/Perlesvaux/javascript-algorithms-and-data-structures)
