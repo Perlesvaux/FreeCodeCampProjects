@@ -1,7 +1,6 @@
 <style>
-h2{
-    color:yellow;
-    border: 1px solid red;
+body{
+    background-color: #727487;
 }
 
 </style>
