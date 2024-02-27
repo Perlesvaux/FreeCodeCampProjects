@@ -12,7 +12,6 @@ React/drum-machine/package-lock.json
 React/calc_js/package-lock.json
 React/calc_js/node_modules/
 React/rand_quo_gen/firstMonolith.html
-React/mrk_dwn_prev/monolith.html
 Express/exercisetracker/node_modules/
 Express/filemetadata/node_modules/
 Express/headerparser/node_modules/
@@ -23,3 +22,16 @@ Express/filemetadata/.gitpod.yml
 Express/headerparser/.gitpod.yml
 Express/timestamp/.gitpod.yml
 Express/urlshortener/.gitpod.yml
+Express/exercisetracker/.env
+Express/filemetadata/.env
+Express/headerparser/.env
+Express/timestamp/.env
+Express/urlshortener/.env
+React/clock_25_5/App.js
+React/clock_25_5/App.jsx.AllSet
+React/clock_25_5/App2approach.jsx
+React/clock_25_5/copyofjsx
+React/clock_25_5/node_modules/
+React/clock_25_5/package-lock.json
+React/cnt_dwn/
+
