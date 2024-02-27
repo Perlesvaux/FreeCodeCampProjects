@@ -12,4 +12,8 @@ React/drum-machine/package-lock.json
 React/calc_js/package-lock.json
 React/calc_js/node_modules/
 React/rand_quo_gen/firstMonolith.html
-
+Express/exercisetracker/node_modules/
+Express/filemetadata/node_modules/
+Express/headerparser/node_modules/
+Express/timestamp/node_modules/
+Express/urlshortener/node_modules/
