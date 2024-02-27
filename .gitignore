@@ -17,3 +17,8 @@ Express/filemetadata/node_modules/
 Express/headerparser/node_modules/
 Express/timestamp/node_modules/
 Express/urlshortener/node_modules/
+Express/exercisetracker/.gitpod.yml/
+Express/filemetadata/.gitpod.yml/
+Express/headerparser/.gitpod.yml/
+Express/timestamp/.gitpod.yml/
+Express/urlshortener/.gitpod.yml/
