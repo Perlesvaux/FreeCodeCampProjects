@@ -21,8 +21,6 @@
 - [JavaScript Calculator](React/calc_js/monolith.html)
 - [25 + 5 Clock](React/clock_25_5/monolith.html)
 
-## [Foundational C# with Microsoft](https://www.freecodecamp.org/certification/Perlesvaux/foundational-c-sharp-with-microsoft) 
-
 ## [Back End Development and APIs](https://www.freecodecamp.org/certification/Perlesvaux/back-end-development-and-apis)
 - Timestamp Microservice
 - Request Header Parser Microservice
@@ -30,4 +28,6 @@
 - Exercise Tracker
 - File Metadata Microservice
 
+## [Foundational C# with Microsoft](https://www.freecodecamp.org/certification/Perlesvaux/foundational-c-sharp-with-microsoft) 
 
+## [Responsive Web Design](https://www.freecodecamp.org/certification/Perlesvaux/responsive-web-design) 
