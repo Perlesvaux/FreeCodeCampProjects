@@ -1,0 +1,95 @@
+If you leave your virtual machine, your database may not be saved. You can make a dump of it by entering 
+
+pg_dump -cC --inserts -U freecodecamp universe > universe.sql 
+
+in a bash terminal (not the psql one). It will save the commands to rebuild your database in universe.sql. The file will be located where the command was entered. If it's anything inside the project folder, the file will be saved in the VM. You can rebuild the database by entering 
+
+psql -U postgres < universe.sql in a terminal where the .sql file is.
+
+If you are saving your progress on freeCodeCamp.org, after getting all the tests to pass, follow the instructions above to save a dump of your database. Save the universe.sql file in a public repository and submit the URL to it on freeCodeCamp.org.
+
+
+
+create table galaxy(galaxy_id serial unique not null primary key, name varchar(30) unique not null, ly int, visible boolean, diameter numeric(6,2), magnetic_field int, class text);
+
+create table star(star_id serial unique not null primary key, name varchar(30) unique not null, ly int, visible boolean, galaxy_id int references galaxy(galaxy_id));
+
+create table planet(planet_id serial unique not null primary key, name varchar(30) unique not null, ly int, visible boolean, star_id int references star(star_id));
+
+create table moon(moon_id serial unique not null primary key, name varchar(30) unique not null, ly int, visible boolean, star_id int references planet(planet_id));
+
+create table constelation(constelation_id serial not null unique primary key, name varchar(30) not null unique, star_id int references star(star_id));
+
+
+
+
+insert into constelation(name, star_id) values ('aquario', 15)
+,('aquario b', 16)
+,('aquario a', 17)
+,('virgo', 18)
+,('virgo b', 19)
+,('scorpio', 20)
+,('scorpio b', 21)
+,('sagitario', 22)
+,('sagitario a', 23);
+
+
+insert into galaxy(class, ly, visible, diameter, magnetic_field, name) values ('a', 100, true, 30, 12, 'MlkWy')
+,('a', 100, true, 30, 12, 'mlk')
+,('a', 100, true, 30, 12, 'mlkway')
+,('a', 100, true, 30, 12, 'milky')
+,('a', 100, true, 30, 12, 'way')
+,('a', 100, true, 30, 12, 'milkyway a')
+,('a', 100, true, 30, 12, 'MlkWy b')
+,('a', 100, true, 30, 12, 'MlkWy c')
+,('a', 100, true, 30, 12, 'MlkWy d')
+,('a', 100, true, 30, 12, 'MlkWy f')
+,('a', 100, true, 30, 12, 'MlkWy e')
+,('a', 100, true, 30, 12, 'MlkWy g')
+,('a', 100, true, 30, 12, 'MlkWy h')
+,('a', 100, true, 30, 12, 'MlkWy i');
+
+insert into star(ly, visible, name, galaxy_id) values (100, true, 'perseus', 11)
+,(100, true, 'egalabalus', 4)
+,(100, true, 'athena', 2)
+,(100, true, 'poseidon', 11)
+,(100, true, 'zeus', 6)
+,(100, true, 'ursa minor', 6)
+,(100, true, 'ursa major', 7)
+,(100, true, 'polux', 8)
+,(100, true, 'castor', 9)
+,(100, true, 'betelgeuse', 10)
+,(100, true, 'ouroboros', 9)
+,(100, true, 'orion', 9)
+,(100, true, 'chariot', 3)
+,(100, true, 'scorpio', 4);
+
+insert into planet(ly, visible, name, star_id) values (100, true, 'tierra', 15)
+,(100, true, 'earth', 24)
+,(100, true, 'pluto', 22)
+,(100, true, 'mars', 21)
+,(100, true, 'ouranos', 26)
+,(100, true, 'ur anus', 26)
+,(100, true, 'urano', 27)
+,(100, true, 'oouranos', 18)
+,(100, true, 'tu ano', 19)
+,(100, true, 'mercury', 20)
+,(100, true, 'fredy', 19)
+,(100, true, 'pluton', 28)
+,(100, true, 'mickey', 27)
+,(100, true, 'goofy', 16);
+
+insert into moon(ly, visible, name, planet_id) values (100, true, 'pepe', 91)
+,(100, true, 'etsech', 92)
+,(100, true, 'aguila', 93)
+,(100, true, 'mapache', 94)
+,(100, true, 'ouran', 96)
+,(100, true, 'anus', 96)
+,(100, true, 'pan', 97)
+,(100, true, 'gea', 98)
+,(100, true, 'ano', 99)
+,(100, true, 'manolo', 104)
+,(100, true, 'vega', 103)
+,(100, true, 'luna', 98)
+,(100, true, 'oi', 101)
+,(100, true, 'pete', 100);
